@@ -1,20 +1,18 @@
 FROM nginx:1.25-alpine
 
 LABEL maintainer="ElectEdu Team"
-LABEL version="2.1"
+LABEL version="2.2"
 
 # Install curl for health checks and envsubst (gettext)
 RUN apk add --no-cache curl gettext
 
 # Create required directories with proper permissions
+# We ensure /tmp is wide open for the nginx user
 RUN mkdir -p /var/cache/nginx /var/log/nginx /var/run /tmp && \
-    touch /var/log/nginx/access.log /var/log/nginx/error.log && \
-    chown -R nginx:nginx /var/cache/nginx /var/log/nginx /var/run /tmp && \
-    chmod 777 /tmp && \
-    chmod 755 /var/log/nginx /var/cache/nginx /var/run
+    chmod -R 777 /var/cache/nginx /var/log/nginx /var/run /tmp
 
-# Copy configuration template and entrypoint
-COPY nginx.conf.template /etc/nginx/nginx.conf.template
+# Copy configuration template and entrypoint to /tmp
+COPY nginx.conf.template /tmp/nginx.conf.template
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
@@ -25,12 +23,11 @@ COPY . /usr/share/nginx/html/
 RUN chown -R nginx:nginx /usr/share/nginx/html && \
     chmod -R 755 /usr/share/nginx/html
 
-# Expose port (Documentation only, Cloud Run uses $PORT)
+# Expose port (Cloud Run uses $PORT)
 EXPOSE 8080
 
-# Health check (Uses internal localhost check)
-HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
-    CMD curl -f http://localhost:${PORT:-8080}/health 2>/dev/null || exit 1
+# We remove the Docker HEALTHCHECK to allow Cloud Run's native health check 
+# to manage the lifecycle, avoiding port mismatch issues during startup.
 
 # Run entrypoint script
 ENTRYPOINT ["/entrypoint.sh"]

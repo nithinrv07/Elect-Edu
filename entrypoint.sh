@@ -2,8 +2,10 @@
 # Default to 8080 if PORT is not set
 export PORT=${PORT:-8080}
 
-echo "Generating Nginx config for port ${PORT}..."
-envsubst '${PORT}' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
+echo "Universal Entrypoint: Configuring Nginx to listen on port ${PORT}"
 
-echo "Starting Nginx..."
-exec nginx -g 'daemon off;'
+# Perform substitution into /tmp to avoid permission issues with /etc/nginx
+envsubst '${PORT}' < /tmp/nginx.conf.template > /tmp/nginx.conf
+
+echo "Starting Nginx with custom config from /tmp/nginx.conf"
+exec nginx -c /tmp/nginx.conf -g 'daemon off;'
