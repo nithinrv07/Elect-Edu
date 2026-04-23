@@ -1,63 +1,28 @@
 /**
  * Firebase Configuration for ElectEdu v2.1
- * Cloud Services: Authentication, Firestore, Analytics, Storage
- * Google Services: Analytics, Translate, Sheets, Drive, Maps, Sign-In
+ * Cloud Services: Analytics
+ * Simple, robust, non-module version
  */
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
-import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-analytics.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
-import { getStorage } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-storage.js";
-
-// Firebase configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyBkqozaG5mP8Vniwa_00cENDiZ_yW-v0Vo",
-    authDomain: "electedu-86c74.firebaseapp.com",
-    databaseURL: "https://electedu-86c74-default-rtdb.firebaseio.com",
-    projectId: "electedu-86c74",
-    storageBucket: "electedu-86c74.firebasestorage.app",
-    messagingSenderId: "404435592030",
-    appId: "1:404435592030:web:ea4ddc6bacaba487b725cf",
-    measurementId: "G-4BJV5P9M0V"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-console.log('[ElectEdu Firebase] Initialized successfully');
-
-// Export app as default
-export default app;
-
-// Initialize Firebase Services with error handling
-let analytics, auth, db, storage;
-
-try {
-    analytics = getAnalytics(app);
-    auth = getAuth(app);
-    db = getFirestore(app);
-    storage = getStorage(app);
-} catch (error) {
-    console.error('[ElectEdu] Error initializing Firebase services:', error);
-}
-
-export { analytics, auth, db, storage };
-
-/**
- * Log custom events to Firebase Analytics with error handling
- */
-export function logCustomEvent(eventName, eventData = {}) {
-    try {
-        if (!analytics) {
-            console.warn(`[ElectEdu] Analytics not available, skipping event: ${eventName}`);
-            return;
-        }
-        logEvent(analytics, eventName, eventData);
-        console.log(`[ElectEdu] Event logged: ${eventName}`, eventData);
-    } catch (error) {
-        console.error('[ElectEdu] Failed to log event:', error);
-    }
-}
+(function() {
+    console.log('[ElectEdu] Firebase Config: Starting initialization');
+    
+    // Firebase config
+    const firebaseConfig = {
+        apiKey: "AIzaSyBkqozaG5mP8Vniwa_00cENDiZ_yW-v0Vo",
+        authDomain: "electedu-86c74.firebaseapp.com",
+        databaseURL: "https://electedu-86c74-default-rtdb.firebaseio.com",
+        projectId: "electedu-86c74",
+        storageBucket: "electedu-86c74.firebasestorage.app",
+        messagingSenderId: "404435592030",
+        appId: "1:404435592030:web:ea4ddc6bacaba487b725cf",
+        measurementId: "G-4BJV5P9M0V"
+    };
+    
+    // Make config available globally
+    window.firebaseConfig = firebaseConfig;
+    console.log('[ElectEdu] Firebase configuration loaded');
+})();
 
 /**
  * Track page views

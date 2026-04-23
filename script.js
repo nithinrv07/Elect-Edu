@@ -14,55 +14,21 @@ async function initializeGoogleServices() {
     try {
         Logger.log('Initializing Google Services...');
         
-        // Verify stateElectionData is available
-        if (typeof stateElectionData === 'undefined' && typeof window.stateElectionData === 'undefined') {
-            Logger.warn('stateElectionData not yet loaded, will retry...');
-            setTimeout(initializeGoogleServices, 500);
-            return;
-        }
-
-        // Make stateElectionData available globally if needed
-        if (typeof stateElectionData === 'undefined') {
-            window.stateElectionData = window.stateElectionData || {};
-        }
-        
-        // Safely initialize Firebase if available
-        try {
-            if (typeof performGoogleServicesHealthCheck !== 'undefined') {
-                await performGoogleServicesHealthCheck();
-            }
-        } catch (e) {
-            Logger.warn('Firebase health check skipped:', e);
-        }
-        
         // Track initial page view
         if (typeof gtag !== 'undefined') {
-            gtag('event', 'page_view', {
-                page_title: document.title,
-                page_path: window.location.pathname
-            });
-        }
-
-        // Initialize Google Translate if available
-        if (window.google && window.google.translate) {
-            Logger.log('Google Translate is available');
-        }
-
-        // Track app initialization (only if logCustomEvent is available)
-        if (typeof window.logCustomEvent === 'function') {
             try {
-                window.logCustomEvent('app_initialized', {
-                    version: '2.1',
-                    timestamp: new Date().toISOString()
+                gtag('event', 'page_view', {
+                    page_title: document.title,
+                    page_path: window.location.pathname
                 });
             } catch (e) {
-                Logger.warn('Could not log custom event:', e);
+                Logger.warn('gtag not available');
             }
         }
 
-        Logger.log('Google Services initialized successfully');
+        Logger.log('Google Services initialized');
     } catch (error) {
-        Logger.error('Google Services initialization failed', error);
+        Logger.warn('Google Services init warning:', error.message);
     }
 }
 
@@ -141,7 +107,48 @@ const PerformanceOptimizer = {
 };
 
 // ============================================================================
-// MAIN APPLICATION INITIALIZATION
+// COUNTER ANIMATION (Global)
+// ============================================================================
+
+function triggerCounters() {
+    const counters = document.querySelectorAll('.stat-value');
+    if (counters.length === 0) {
+        Logger.warn('No counters found');
+        return;
+    }
+    
+    counters.forEach(counter => {
+        try {
+            const target = parseInt(counter.getAttribute('data-target'), 10);
+            const suffix = counter.getAttribute('data-suffix') || '';
+            
+            if (isNaN(target)) return;
+            
+            const duration = 2000;
+            const increment = target / (duration / 16);
+            let current = 0;
+            const startTime = performance.now();
+            
+            const updateCounter = (currentTime) => {
+                current += increment;
+                if (current < target) {
+                    counter.textContent = Math.ceil(current) + suffix;
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    counter.textContent = target + suffix;
+                }
+            };
+            
+            requestAnimationFrame(updateCounter);
+        } catch (error) {
+            Logger.warn('Counter error:', error);
+        }
+    });
+}
+
+// Make globally accessible
+window.triggerCounters = triggerCounters;
+
 // ============================================================================
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -223,53 +230,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
-        // ===== 3. ANIMATED COUNTERS (Performance Optimized) =====
-        let countersTriggered = false;
-        
-        function triggerCounters() {
-            if (countersTriggered) return;
-            countersTriggered = true;
-            
-            const counters = document.querySelectorAll('.stat-value');
-            counters.forEach(counter => {
-                try {
-                    const target = parseInt(counter.getAttribute('data-target'), 10);
-                    const suffix = counter.getAttribute('data-suffix') || '';
-                    
-                    if (isNaN(target)) {
-                        Logger.warn('Invalid counter target', counter);
-                        return;
-                    }
-                    
-                    const duration = 2000; // ms
-                    const increment = target / (duration / 16); // 60fps
-                    
-                    let current = 0;
-                    const startTime = performance.now();
-                    
-                    const updateCounter = (currentTime) => {
-                        const elapsed = currentTime - startTime;
-                        current += increment;
-                        
-                        if (current < target) {
-                            counter.textContent = Math.ceil(current) + suffix;
-                            requestAnimationFrame(updateCounter);
-                        } else {
-                            counter.textContent = target + suffix;
-                        }
-                    };
-                    
-                    requestAnimationFrame(updateCounter);
-                } catch (error) {
-                    Logger.error('Counter animation error', error);
-                }
-            });
-        }
-
-        // Trigger counters immediately on page load
+        // ===== 3. ANIMATED COUNTERS - Already globally defined above =====
+        // Trigger counters immediately
         triggerCounters();
-
-        Logger.log('Animated counters initialized');
+        Logger.log('Counters triggered');
     } catch (error) {
         Logger.error('Counter initialization failed', error);
     }
@@ -300,19 +264,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             if ($) {
                 $('#state-select').on('select2:select', function (e) {
                     try {
-                        // Check if stateElectionData is available from either location
-                        const stateData = typeof stateElectionData !== 'undefined' ? stateElectionData : window.stateElectionData;
-                        
-                        if (typeof stateData === 'undefined') {
-                            Logger.error('State election data not loaded yet');
-                            return;
-                        }
-
                         const selectedState = e.params.data.id;
-                        const data = stateData[selectedState];
+                        const data = window.stateElectionData[selectedState];
 
                         if (!data) {
-                            Logger.warn('State data not found', selectedState);
+                            Logger.warn('State data not found for:', selectedState);
                             return;
                         }
 
