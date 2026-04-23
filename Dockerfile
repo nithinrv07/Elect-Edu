@@ -1,24 +1,20 @@
 FROM nginx:1.25-alpine
 
 LABEL maintainer="ElectEdu Team"
-LABEL version="2.5"
-
-# Install curl and gettext
-RUN apk add --no-cache curl gettext
+LABEL version="2.6"
 
 # Copy application files
 COPY . /usr/share/nginx/html/
 
-# Copy the template to /tmp
-COPY nginx.conf.template /tmp/nginx.conf.template
+# Copy and set up the bulletproof entrypoint
+COPY debug-entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-# Copy the debug entrypoint
-COPY debug-entrypoint.sh /debug-entrypoint.sh
-RUN chmod +x /debug-entrypoint.sh
+# Ensure all runtime paths are writable
+RUN chmod -R 777 /tmp /var/cache/nginx /var/log/nginx /var/run /usr/share/nginx/html
 
-# Ensure /tmp and web root are writable for any user
-RUN chmod -R 777 /tmp /var/cache/nginx /var/log/nginx /var/run && \
-    chown -R nginx:nginx /usr/share/nginx/html
+# Use 8080 as default (Cloud Run will override)
+ENV PORT=8080
+EXPOSE 8080
 
-# Use the debug entrypoint
-ENTRYPOINT ["/debug-entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
