@@ -14,6 +14,18 @@ async function initializeGoogleServices() {
     try {
         Logger.log('Initializing Google Services...');
         
+        // Verify stateElectionData is available
+        if (typeof stateElectionData === 'undefined' && typeof window.stateElectionData === 'undefined') {
+            Logger.warn('stateElectionData not yet loaded, will retry...');
+            setTimeout(initializeGoogleServices, 500);
+            return;
+        }
+
+        // Make stateElectionData available globally if needed
+        if (typeof stateElectionData === 'undefined') {
+            window.stateElectionData = window.stateElectionData || {};
+        }
+        
         // Safely initialize Firebase if available
         try {
             if (typeof performGoogleServicesHealthCheck !== 'undefined') {
@@ -254,6 +266,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         }
 
+        // Trigger counters immediately on page load
+        triggerCounters();
+
         Logger.log('Animated counters initialized');
     } catch (error) {
         Logger.error('Counter initialization failed', error);
@@ -285,14 +300,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             if ($) {
                 $('#state-select').on('select2:select', function (e) {
                     try {
-                        // Check if stateElectionData is available
-                        if (typeof stateElectionData === 'undefined') {
+                        // Check if stateElectionData is available from either location
+                        const stateData = typeof stateElectionData !== 'undefined' ? stateElectionData : window.stateElectionData;
+                        
+                        if (typeof stateData === 'undefined') {
                             Logger.error('State election data not loaded yet');
                             return;
                         }
 
                         const selectedState = e.params.data.id;
-                        const data = stateElectionData[selectedState];
+                        const data = stateData[selectedState];
 
                         if (!data) {
                             Logger.warn('State data not found', selectedState);

@@ -4,7 +4,9 @@
  * Last Updated: April 2026
  */
 
-const stateElectionData = {
+// Ensure we don't have duplicate declarations
+if (typeof window.stateElectionData === 'undefined') {
+    window.stateElectionData = {
     "Andhra Pradesh": {
         dates: "13 May 2024",
         seats: "175",
@@ -250,7 +252,11 @@ const stateElectionData = {
         status: "Completed (2023)",
         type: "State"
     }
-};
+    };
+}
+
+// Make it accessible globally
+const stateElectionData = window.stateElectionData;
 
 // Export for use in other files
 if (typeof module !== 'undefined' && module.exports) {
