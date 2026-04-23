@@ -29,17 +29,29 @@ console.log('[ElectEdu Firebase] Initialized successfully');
 // Export app as default
 export default app;
 
-// Initialize Firebase Services
-export const analytics = getAnalytics(app);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-export const storage = getStorage(app);
+// Initialize Firebase Services with error handling
+let analytics, auth, db, storage;
+
+try {
+    analytics = getAnalytics(app);
+    auth = getAuth(app);
+    db = getFirestore(app);
+    storage = getStorage(app);
+} catch (error) {
+    console.error('[ElectEdu] Error initializing Firebase services:', error);
+}
+
+export { analytics, auth, db, storage };
 
 /**
- * Log custom events to Firebase Analytics
+ * Log custom events to Firebase Analytics with error handling
  */
 export function logCustomEvent(eventName, eventData = {}) {
     try {
+        if (!analytics) {
+            console.warn(`[ElectEdu] Analytics not available, skipping event: ${eventName}`);
+            return;
+        }
         logEvent(analytics, eventName, eventData);
         console.log(`[ElectEdu] Event logged: ${eventName}`, eventData);
     } catch (error) {
@@ -97,6 +109,10 @@ export function trackStateSelection(stateName) {
  */
 export async function saveUserEngagement(userId, engagementData) {
     try {
+        if (!db) {
+            console.warn('[ElectEdu] Database not available');
+            return;
+        }
         const docRef = db.collection('users').doc(userId);
         await docRef.set(engagementData, { merge: true });
         console.log('[ElectEdu] User engagement saved');

@@ -8,11 +8,20 @@
 // ============================================================================
 
 /**
- * Initialize all Google Services on app startup
+ * Google Services Health Check & Initialization with Error Handling
  */
 async function initializeGoogleServices() {
     try {
         Logger.log('Initializing Google Services...');
+        
+        // Safely initialize Firebase if available
+        try {
+            if (typeof performGoogleServicesHealthCheck !== 'undefined') {
+                await performGoogleServicesHealthCheck();
+            }
+        } catch (e) {
+            Logger.warn('Firebase health check skipped:', e);
+        }
         
         // Track initial page view
         if (typeof gtag !== 'undefined') {
@@ -27,12 +36,16 @@ async function initializeGoogleServices() {
             Logger.log('Google Translate is available');
         }
 
-        // Track app initialization
-        if (typeof logCustomEvent !== 'undefined') {
-            logCustomEvent('app_initialized', {
-                version: '2.1',
-                timestamp: new Date().toISOString()
-            });
+        // Track app initialization (only if logCustomEvent is available)
+        if (typeof window.logCustomEvent === 'function') {
+            try {
+                window.logCustomEvent('app_initialized', {
+                    version: '2.1',
+                    timestamp: new Date().toISOString()
+                });
+            } catch (e) {
+                Logger.warn('Could not log custom event:', e);
+            }
         }
 
         Logger.log('Google Services initialized successfully');
@@ -272,6 +285,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             if ($) {
                 $('#state-select').on('select2:select', function (e) {
                     try {
+                        // Check if stateElectionData is available
+                        if (typeof stateElectionData === 'undefined') {
+                            Logger.error('State election data not loaded yet');
+                            return;
+                        }
+
                         const selectedState = e.params.data.id;
                         const data = stateElectionData[selectedState];
 
