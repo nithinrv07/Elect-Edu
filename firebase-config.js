@@ -25,6 +25,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 console.log('[ElectEdu Firebase] Initialized successfully');
 
+// Export app as default
+export default app;
+
 // Initialize Firebase Services
 export const analytics = getAnalytics(app);
 export const auth = getAuth(app);

@@ -7,6 +7,8 @@ steps:
       - 'asia-south2-docker.pkg.dev/$PROJECT_ID/electedu/electedu:latest'
       - '-t'
       - 'asia-south2-docker.pkg.dev/$PROJECT_ID/electedu/electedu:$SHORT_SHA'
+      - '--build-arg'
+      - 'BUILDKIT_INLINE_CACHE=1'
       - '.'
     id: 'build-image'
 
@@ -17,7 +19,7 @@ steps:
       - 'asia-south2-docker.pkg.dev/$PROJECT_ID/electedu/electedu:latest'
     id: 'push-image'
 
-  # Deploy to Cloud Run
+  # Deploy to Cloud Run with proper error handling
   - name: 'gcr.io/cloud-builders/run'
     args:
       - 'deploy'
@@ -37,6 +39,9 @@ steps:
       - '3600'
       - '--max-instances'
       - '100'
+      - '--port'
+      - '8080'
+      - '--no-gen2'
     id: 'deploy'
 
 # Set build timeout to 15 minutes
@@ -47,3 +52,5 @@ options:
   machineType: 'N1_HIGHCPU_8'
   logging: CLOUD_LOGGING_ONLY
   substitutionOption: 'ALLOW_LOOSE'
+  substitutions:
+    _REGION: 'asia-south2'
