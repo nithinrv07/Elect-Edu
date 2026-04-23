@@ -140,7 +140,7 @@ const TranslationManager = {
                     element.placeholder = langData[key];
                 } else if (element.tagName === 'OPTION') {
                     element.textContent = langData[key];
-                } else if (key.includes('title') || key.includes('subtitle') || key.includes('desc') || key.includes('copyright')) {
+                } else if (key.includes('title') || key.includes('subtitle') || key.includes('desc') || key.includes('copyright') || key.includes('mission')) {
                     // Use innerHTML for elements that might contain HTML/spans
                     element.innerHTML = langData[key];
                 } else {
@@ -204,6 +204,7 @@ const TranslationManager = {
      */
     init: function() {
         const savedLanguage = localStorage.getItem('electedu-language') || 'en';
+        Logger.log('Initializing translations with:', savedLanguage);
         this.translatePage(savedLanguage);
     }
 };
@@ -319,8 +320,11 @@ function safeAddEventListener(el, event, handler) {
 // ============================================================================
 
 document.addEventListener('DOMContentLoaded', async () => {
-    // Initialize Google Services first
-    await initializeGoogleServices();
+    // Initialize translations IMMEDIATELY for better UX/LCP
+    TranslationManager.init();
+
+    // Initialize Google Services in background
+    initializeGoogleServices();
 
     // ===== 1. MOBILE NAVIGATION TOGGLE =====
     try {
@@ -557,13 +561,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         const languageSelect = document.getElementById('language-select');
         if (languageSelect) {
-            // Restore saved language
+            // Restore saved language to dropdown
             const savedLanguage = localStorage.getItem('electedu-language') || 'en';
             languageSelect.value = savedLanguage;
             
-            // Initialize translations on page load
-            TranslationManager.init();
-
             languageSelect.addEventListener('change', function(e) {
                 const selectedLanguage = e.target.value;
                 TranslationManager.translatePage(selectedLanguage);
