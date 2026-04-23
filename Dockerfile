@@ -12,10 +12,11 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 # Copy project files to nginx document root
 COPY . /usr/share/nginx/html/
 
-# Create nginx cache directory and set permissions
-RUN mkdir -p /var/cache/nginx /var/run/nginx && \
+# Create nginx directories and set permissions
+RUN mkdir -p /var/cache/nginx /var/run/nginx /var/log/nginx && \
     chown -R nginx:nginx /usr/share/nginx/html /var/cache/nginx /var/run/nginx /var/log/nginx && \
-    chmod -R 755 /usr/share/nginx/html
+    chmod -R 755 /usr/share/nginx/html && \
+    chmod -R 777 /var/log/nginx /var/run/nginx
 
 # Expose port 8080 (Google Cloud Run default)
 EXPOSE 8080
