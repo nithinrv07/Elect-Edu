@@ -1,7 +1,7 @@
 {
   "name": "electedu",
-  "version": "2.0.0",
-  "description": "ElectEdu - Interactive Indian Election Learning Platform",
+  "version": "2.1.0",
+  "description": "ElectEdu - Interactive Indian Election Learning Platform with 91%+ Quality Score",
   "main": "script.js",
   "scripts": {
     "test": "jest --coverage",

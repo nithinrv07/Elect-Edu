@@ -1,7 +1,45 @@
 /**
  * ElectEdu Application - Enhanced with Security & Performance Optimizations
- * Version 2.0 - Improved code quality, accessibility, and error handling
+ * Version 2.1 - Improved code quality, accessibility, Google Services integration, and error handling
  */
+
+// ============================================================================
+// GOOGLE SERVICES INITIALIZATION
+// ============================================================================
+
+/**
+ * Initialize all Google Services on app startup
+ */
+async function initializeGoogleServices() {
+    try {
+        Logger.log('Initializing Google Services...');
+        
+        // Track initial page view
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'page_view', {
+                page_title: document.title,
+                page_path: window.location.pathname
+            });
+        }
+
+        // Initialize Google Translate if available
+        if (window.google && window.google.translate) {
+            Logger.log('Google Translate is available');
+        }
+
+        // Track app initialization
+        if (typeof logCustomEvent !== 'undefined') {
+            logCustomEvent('app_initialized', {
+                version: '2.1',
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        Logger.log('Google Services initialized successfully');
+    } catch (error) {
+        Logger.error('Google Services initialization failed', error);
+    }
+}
 
 // ============================================================================
 // UTILITIES & ERROR HANDLING
@@ -81,7 +119,10 @@ const PerformanceOptimizer = {
 // MAIN APPLICATION INITIALIZATION
 // ============================================================================
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // Initialize Google Services first
+    await initializeGoogleServices();
+
     // ===== 1. MOBILE NAVIGATION TOGGLE =====
     try {
         const mobileToggle = document.querySelector('.mobile-toggle');
@@ -289,7 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     try {
-        // ===== 5. ACCESSIBLE FAQ ACCORDION =====
+        // ===== 5. ACCESSIBLE FAQ ACCORDION WITH GOOGLE ANALYTICS TRACKING =====
         const accordionBtns = document.querySelectorAll('.accordion-btn');
         
         accordionBtns.forEach((btn, index) => {
@@ -317,13 +358,24 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Toggle current
                     this.setAttribute('aria-expanded', !isOpen);
                     content.style.maxHeight = isOpen ? null : content.scrollHeight + "px";
+
+                    // Track FAQ interaction with Google Analytics
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'faq_engagement', {
+                            faq_index: index,
+                            action: !isOpen ? 'opened' : 'closed',
+                            faq_question: this.textContent.substring(0, 50)
+                        });
+                    }
+
+                    Logger.log('FAQ item toggled:', index, !isOpen ? 'opened' : 'closed');
                 } catch (error) {
                     Logger.error('Accordion toggle error', error);
                 }
             });
         });
 
-        Logger.log('FAQ accordion initialized with accessibility');
+        Logger.log('FAQ accordion initialized with accessibility and tracking');
     } catch (error) {
         Logger.error('Accordion initialization failed', error);
     }
