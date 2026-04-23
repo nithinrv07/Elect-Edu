@@ -1,31 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Character Encoding & Viewport -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ElectEdu | Indian Election Process</title>
-    <meta name="description" content="An interactive, easy-to-follow guide explaining the Indian election process, voting methods, and EVMs.">
-    <!-- Google Fonts: Inter -->
+    
+    <!-- SEO & Meta Tags -->
+    <title>ElectEdu | Indian Election Process - Learn About Democracy</title>
+    <meta name="description" content="An interactive, easy-to-follow guide explaining the Indian election process, voting methods, and EVMs. Improve your election knowledge.">
+    <meta name="keywords" content="indian elections, voting process, democracy, ECI, election commission">
+    <meta name="author" content="ElectEdu Team">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph & Social Sharing -->
+    <meta property="og:title" content="ElectEdu | Indian Election Process">
+    <meta property="og:description" content="Learn about India's democratic process and elections">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://electedu.example.com">
+    
+    <!-- Security Headers -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://code.jquery.com https://cdnjs.cloudflare.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; connect-src 'self' https://www.google-analytics.com">
+    
+    <!-- Preconnect for Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Google Fonts: Inter & Outfit -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Select2 Select w/ Search -->
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous">
+    
+    <!-- Select2 Select with Search -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
+    <!-- Local Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    
+    <!-- Google Analytics (Global Site Tag) -->
+    <!-- Replace YOUR_GA_ID with your actual Google Analytics ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'YOUR_GA_ID', {'anonymize_ip': true});
+    </script>
+    
+    <!-- Firebase SDK for Cloud Services Integration -->
+    <!-- Replace with your Firebase config credentials -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"></script>
+    <script src="./firebase-config.js"></script>
 </head>
 <body>
 
     <!-- Navigation -->
-    <nav class="navbar" id="navbar">
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
         <div class="nav-brand">
             <img src="./transparent_logo.png" alt="ECI Logo" class="brand-logo">
             <span>ElectEdu</span>
         </div>
-        <button class="mobile-toggle" aria-label="Toggle menu">
+        <button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">
             <i class="fa-solid fa-bars"></i>
         </button>
         <ul class="nav-links">
@@ -439,6 +482,10 @@
     </script>
     <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     
+    <!-- Election Data -->
+    <script src="stateElectionData.js"></script>
+    
+    <!-- Main Application Script -->
     <script src="script.js"></script>
 </body>
 </html>
