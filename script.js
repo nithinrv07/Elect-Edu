@@ -233,9 +233,13 @@ function triggerCounters() {
             const startTime = performance.now();
             
             const updateCounter = (currentTime) => {
-                current += increment;
-                if (current < target) {
-                    counter.textContent = Math.ceil(current) + suffix;
+                if (!startTime) startTime = currentTime;
+                const progress = Math.min((currentTime - startTime) / duration, 1);
+                current = Math.floor(progress * target);
+                
+                counter.textContent = current + suffix;
+                
+                if (progress < 1) {
                     requestAnimationFrame(updateCounter);
                 } else {
                     counter.textContent = target + suffix;
@@ -586,20 +590,26 @@ document.addEventListener('DOMContentLoaded', async () => {
                 'page_title': document.title
             });
             
-            // Track scroll depth
+            // Track scroll depth with throttling to prevent forced reflows
             let maxScroll = 0;
+            let scrollTimeout;
             window.addEventListener('scroll', () => {
-                const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-                if (scrollPercent > maxScroll) {
-                    maxScroll = scrollPercent;
-                    if (maxScroll >= 25 && maxScroll < 50) {
-                        gtag('event', 'scroll_depth', { 'value': 25 });
-                    } else if (maxScroll >= 50 && maxScroll < 75) {
-                        gtag('event', 'scroll_depth', { 'value': 50 });
-                    } else if (maxScroll >= 75) {
-                        gtag('event', 'scroll_depth', { 'value': 75 });
+                if (scrollTimeout) return;
+                
+                scrollTimeout = setTimeout(() => {
+                    const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                    if (scrollPercent > maxScroll) {
+                        maxScroll = scrollPercent;
+                        if (maxScroll >= 25 && maxScroll < 50) {
+                            gtag('event', 'scroll_depth', { 'value': 25 });
+                        } else if (maxScroll >= 50 && maxScroll < 75) {
+                            gtag('event', 'scroll_depth', { 'value': 50 });
+                        } else if (maxScroll >= 75) {
+                            gtag('event', 'scroll_depth', { 'value': 75 });
+                        }
                     }
-                }
+                    scrollTimeout = null;
+                }, 250);
             });
 
             // Track button clicks

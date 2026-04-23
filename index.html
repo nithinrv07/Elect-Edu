@@ -26,10 +26,13 @@
     <!-- Performance: Preconnect & DNS-Prefetch for Critical Resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <link rel="dns-prefetch" href="https://www.youtube.com">
+    <link rel="dns-prefetch" href="https://www.gstatic.com">
     
     <!-- Google Fonts with font-display: swap & resource hints (optimized for LCP) -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Inter:wght@400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -46,8 +49,30 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
     
-    <!-- Local Stylesheet -->
-    <link rel="stylesheet" href="style.css">
+    <!-- Local Stylesheet (deferred for performance) -->
+    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="style.css"></noscript>
+
+    <!-- Critical CSS for instant FCP/LCP -->
+    <style>
+        :root {
+          --bg-dark: #f8fafc; --bg-card: #ffffff; --bg-card-hover: #f1f5f9;
+          --primary: #2563eb; --primary-glow: rgba(37, 99, 235, 0.3);
+          --secondary: #059669; --text-main: #1e293b; --text-muted: #475569;
+          --accent: #7c3aed; --danger: #dc2626; --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          --border-radius: 16px; --nav-height: 80px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        .navbar { position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height); background: rgba(37, 99, 235, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: flex; justify-content: space-between; align-items: center; padding: 0 4rem; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .nav-brand { font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 0.8rem; color: #ffffff; font-family: 'Outfit', sans-serif; }
+        .hero { height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; text-align: center; }
+        .hero-content { position: relative; z-index: 1; max-width: 800px; }
+        .hero h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 1.5rem; font-family: 'Outfit', sans-serif; }
+        .hero h1 span { color: transparent; background: linear-gradient(90deg, #60a5fa, #34d399); -webkit-background-clip: text; background-clip: text; }
+        .stats-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; background: rgba(255, 255, 255, 0.9); padding: 2rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+    </style>
     
     <!-- Google Analytics (Global Site Tag) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4BJV5P9M0V"></script>

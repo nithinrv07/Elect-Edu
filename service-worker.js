@@ -79,6 +79,11 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
     const url = new URL(event.request.url);
     
+    // Only handle HTTP/HTTPS requests (ignores chrome-extension://, etc.)
+    if (!event.request.url.startsWith('http')) {
+        return;
+    }
+
     // Skip non-GET requests
     if (event.request.method !== 'GET') {
         return;
@@ -127,8 +132,7 @@ function handleStaticAsset(request) {
                     }
                     return response;
                 })
-                .catch(error => {
-                    console.warn('[ServiceWorker] Fetch error:', error);
+                .catch(() => {
                     return createOfflineResponse();
                 });
         });
@@ -154,8 +158,7 @@ function handleFontAsset(request) {
                     }
                     return response;
                 })
-                .catch(error => {
-                    console.warn('[ServiceWorker] Font fetch error:', error);
+                .catch(() => {
                     // Return empty response for font errors
                     return new Response('', { status: 404 });
                 });
@@ -179,8 +182,7 @@ function handleNetworkFirst(request) {
             }
             return response;
         })
-        .catch(error => {
-            console.warn('[ServiceWorker] Network error:', error);
+        .catch(() => {
             
             // Try cache as fallback
             return caches.match(request)
