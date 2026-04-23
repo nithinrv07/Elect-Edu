@@ -372,10 +372,39 @@ document.addEventListener('DOMContentLoaded', async () => {
         Logger.error('Accordion initialization failed', error);
     }
 
-    // ===== 7. PERFORMANCE OPTIMIZATION - Lazy Load Images =====
+    // ===== 7. LANGUAGE SELECTOR =====
+    try {
+        const languageSelect = document.getElementById('language-select');
+        if (languageSelect) {
+            // Restore saved language
+            const savedLanguage = localStorage.getItem('electedu-language') || 'en';
+            languageSelect.value = savedLanguage;
+
+            languageSelect.addEventListener('change', function(e) {
+                const selectedLanguage = e.target.value;
+                localStorage.setItem('electedu-language', selectedLanguage);
+                
+                Logger.log('Language changed to:', selectedLanguage);
+                
+                // Track language change
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'language_changed', {
+                        language: selectedLanguage
+                    });
+                }
+
+                // Optionally reload page to apply language changes
+                // window.location.reload();
+            });
+        }
+    } catch (error) {
+        Logger.warn('Language selector initialization failed', error);
+    }
+
+    // ===== 8. PERFORMANCE OPTIMIZATION - Lazy Load Images =====
     PerformanceOptimizer.lazyLoadImages();
     
-    // ===== 8. GOOGLE ANALYTICS INTEGRATION (Enhanced) =====
+    // ===== 9. GOOGLE ANALYTICS INTEGRATION (Enhanced) =====
     try {
         // Initialize Google Analytics if gtag is available
         if (typeof gtag !== 'undefined') {

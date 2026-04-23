@@ -70,7 +70,22 @@
             <li><a href="#process">Steps</a></li>
             <li><a href="#timeline">Timeline</a></li>
             <li><a href="#how-to-vote">How to Vote</a></li>
-            <li class="translate-btn"><div id="google_translate_element"></div></li>
+            <li class="language-selector">
+                <select id="language-select" title="Select Language" style="padding: 8px 12px; border-radius: 5px; border: 2px solid #fff; background: transparent; color: #fff; font-weight: 600; cursor: pointer; transition: all 0.3s;">
+                    <option value="en">English</option>
+                    <option value="hi">हिंदी (Hindi)</option>
+                    <option value="bn">বাংলা (Bengali)</option>
+                    <option value="te">తెలుగు (Telugu)</option>
+                    <option value="mr">मराठी (Marathi)</option>
+                    <option value="ta">தமிழ் (Tamil)</option>
+                    <option value="gu">ગુજરાતી (Gujarati)</option>
+                    <option value="kn">ಕನ್ನಡ (Kannada)</option>
+                    <option value="or">ଓଡ଼ିଆ (Odia)</option>
+                    <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+                    <option value="ml">മലയാളം (Malayalam)</option>
+                    <option value="ur">اردو (Urdu)</option>
+                </select>
+            </li>
         </ul>
     </nav>
 
@@ -297,77 +312,87 @@
     <!-- How to Vote -->
     <section class="section vote-guide dark-section" id="how-to-vote">
         <div class="container">
-            <div class="grid-2 align-center">
-                <div class="vote-content reveal-left">
-                    <h2>How to Cast Your Vote</h2>
-                    <p>Voting in India is primarily done through EVMs. Here is what you need to be prepared for Voting Day.</p>
-                    
-                    <!-- Video Tutorial Section -->
-                    <div class="video-container" style="margin-bottom: 2rem;">
-                        <div class="video-wrapper" style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; background: #000;">
-                            <iframe 
-                                width="560" 
-                                height="315" 
-                                src="https://www.youtube.com/embed/ZJReQ8ao0SU?si=Zrdv5uSNo_Zr0ZIT&start=15" 
-                                title="How to Cast Your Vote - Tutorial" 
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                referrerpolicy="strict-origin-when-cross-origin" 
-                                allowfullscreen
-                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: 8px;">
-                            </iframe>
-                        </div>
-                        <div style="margin-top: 1rem;">
-                            <a href="https://www.youtube.com/watch?v=ZJReQ8ao0SU&start=15" target="_blank" class="btn-primary" style="display: inline-block; padding: 10px 20px; background: #1f2937; color: white; border-radius: 5px; text-decoration: none; font-size: 14px;">
-                                <i class="fa-solid fa-video"></i> Watch Video (YouTube)
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <ul class="check-list">
-                        <li>
-                            <i class="fa-solid fa-id-card"></i>
-                            <div>
-                                <strong>Get your Voter ID (EPIC):</strong> Ensure your name is on the Electoral Roll. You can check this online at the NVSP portal or the Voter Helpline App.
-                            </div>
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-building-flag"></i>
-                            <div>
-                                <strong>Find your Polling Booth:</strong> Check your specific part number and polling station via your voter slip distributed by Booth Level Officers (BLOs).
-                            </div>
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-fingerprint"></i>
-                            <div>
-                                <strong>Valid ID Proof:</strong> Bring your EPIC card. If you don't have it, bring an approved alternative ID (Aadhaar, PAN, Passport, Driving License).
-                            </div>
-                        </li>
-                    </ul>
+        <!-- OFFICIAL VOTING GUIDE SECTION -->
+        <section class="how-to-vote" id="how-to-vote">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 3rem;">
+                    <h2 style="font-size: 2.5rem; color: #1e40af; margin-bottom: 1rem;">Official Voting Guide</h2>
+                    <p style="font-size: 1.1rem; color: #555; max-width: 800px; margin: 0 auto;">Watch this official guide by the Election Commission of India on how to correctly cast your vote using Electronic Voting Machines (EVM) and VVPAT.</p>
                 </div>
-                <div class="vote-cards reveal-right">
-                    <div class="v-card">
-                        <div class="v-icon"><i class="fa-solid fa-calculator"></i></div>
-                        <div>
-                            <h4>EVM (Electronic Voting Machine)</h4>
-                            <span class="v-desc">Press the blue button next to your chosen candidate's symbol.</span>
-                        </div>
+
+                <!-- VIDEO SECTION -->
+                <div style="max-width: 900px; margin: 0 auto; margin-bottom: 3rem;">
+                    <div class="video-wrapper" style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; background: #000; box-shadow: 0 10px 40px rgba(0,0,0,0.2);">
+                        <iframe 
+                            width="560" 
+                            height="315" 
+                            src="https://www.youtube.com/embed/ZJReQ8ao0SU?si=Zrdv5uSNo_Zr0ZIT&start=15" 
+                            title="Official Voting Guide - Election Commission of India" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            referrerpolicy="strict-origin-when-cross-origin" 
+                            allowfullscreen
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;">
+                        </iframe>
                     </div>
-                    <div class="v-card">
-                        <div class="v-icon"><i class="fa-solid fa-receipt"></i></div>
-                        <div>
-                            <h4>VVPAT Verification</h4>
-                            <span class="v-desc">A slip will print behind a glass window displaying your choice for 7 seconds.</span>
-                        </div>
-                    </div>
-                    <div class="v-card">
-                        <div class="v-icon"><i class="fa-solid fa-xmark"></i></div>
-                        <div>
-                            <h4>NOTA (None of the Above)</h4>
-                            <span class="v-desc">If you don't support any candidate, press the pink NOTA button at the bottom.</span>
-                        </div>
+                    <div style="text-align: center; margin-top: 1.5rem;">
+                        <a href="https://www.youtube.com/watch?v=ZJReQ8ao0SU&start=15" target="_blank" style="display: inline-block; padding: 12px 30px; background: #2563eb; color: white; border-radius: 6px; text-decoration: none; font-size: 15px; font-weight: 600; transition: all 0.3s; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);">
+                            <i class="fa-solid fa-play"></i> Watch on YouTube
+                        </a>
+                        <a href="https://www.eci.gov.in/" target="_blank" style="display: inline-block; margin-left: 1rem; padding: 12px 30px; background: #1f2937; color: white; border-radius: 6px; text-decoration: none; font-size: 15px; font-weight: 600; transition: all 0.3s; box-shadow: 0 4px 15px rgba(31, 41, 55, 0.3);">
+                            <i class="fa-solid fa-globe"></i> Election Commission Portal
+                        </a>
                     </div>
                 </div>
+
+                <!-- VOTING STEPS AND CARDS -->
+                <div class="grid-2 align-center">
+                    <div class="vote-content reveal-left">
+                        <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Be Prepared for Voting Day</h3>
+                        <ul class="check-list">
+                            <li>
+                                <i class="fa-solid fa-id-card"></i>
+                                <div>
+                                    <strong>Get your Voter ID (EPIC):</strong> Ensure your name is on the Electoral Roll. You can check this online at the NVSP portal or the Voter Helpline App.
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-building-flag"></i>
+                                <div>
+                                    <strong>Find your Polling Booth:</strong> Check your specific part number and polling station via your voter slip distributed by Booth Level Officers (BLOs).
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-fingerprint"></i>
+                                <div>
+                                    <strong>Valid ID Proof:</strong> Bring your EPIC card. If you don't have it, bring an approved alternative ID (Aadhaar, PAN, Passport, Driving License).
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="vote-cards reveal-right">
+                        <div class="v-card">
+                            <div class="v-icon"><i class="fa-solid fa-calculator"></i></div>
+                            <div>
+                                <h4>EVM (Electronic Voting Machine)</h4>
+                                <span class="v-desc">Press the blue button next to your chosen candidate's symbol.</span>
+                            </div>
+                        </div>
+                        <div class="v-card">
+                            <div class="v-icon"><i class="fa-solid fa-receipt"></i></div>
+                            <div>
+                                <h4>VVPAT Verification</h4>
+                                <span class="v-desc">A slip will print behind a glass window displaying your choice for 7 seconds.</span>
+                            </div>
+                        </div>
+                        <div class="v-card">
+                            <div class="v-icon"><i class="fa-solid fa-xmark"></i></div>
+                            <div>
+                                <h4>NOTA (None of the Above)</h4>
+                                <span class="v-desc">If you don't support any candidate, press the pink NOTA button at the bottom.</span>
+                            </div>
+                        </div>
+                    </div>
             </div>
         </div>
     </section>
@@ -457,20 +482,8 @@
         </div>
     </footer>
 
-    <!-- Google Translate Script -->
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            try {
-                new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'hi,bn,te,mr,ta,ur,gu,kn,or,pa,ml', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-                console.log('[ElectEdu] Google Translate initialized');
-            } catch (error) {
-                console.error('[ElectEdu] Google Translate initialization failed:', error);
-            }
-        }
-    </script>
-    <script async type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    
     <!-- Election Data -->
+    <script src="firebase-config.js"></script>
     <script src="stateElectionData.js"></script>
     
     <!-- Main Application Script -->
