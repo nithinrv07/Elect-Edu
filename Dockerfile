@@ -1,26 +1,33 @@
 FROM nginx:1.25-alpine
 
 LABEL maintainer="ElectEdu Team"
-LABEL version="2.3"
+LABEL version="2.4"
 
-# Install curl for health checks
-RUN apk add --no-cache curl
-
-# Copy the template to the standard Nginx templates directory
-# Standard Nginx entrypoint (>1.19) automatically runs envsubst on these
-COPY default.conf.template /etc/nginx/templates/default.conf.template
+# Install curl and gettext
+RUN apk add --no-cache curl gettext
 
 # Copy application files
 COPY . /usr/share/nginx/html/
 
-# Set proper permissions
-RUN chown -R nginx:nginx /usr/share/nginx/html && \
-    chmod -R 755 /usr/share/nginx/html
+# Copy the template
+COPY default.conf.template /etc/nginx/templates/default.conf.template
 
-# Set default PORT for envsubst (Cloud Run will override this)
+# Copy the debug entrypoint
+COPY debug-entrypoint.sh /debug-entrypoint.sh
+RUN chmod +x /debug-entrypoint.sh
+
+# Create required directories and set permissions
+# Cloud Run sometimes runs as a non-root user (even if root is allowed)
+# so we make these directories writable for everyone just in case.
+RUN mkdir -p /var/cache/nginx /var/log/nginx /var/run /tmp && \
+    chmod -R 777 /var/cache/nginx /var/log/nginx /var/run /tmp && \
+    chown -R nginx:nginx /usr/share/nginx/html
+
+# Set permissions for nginx user
+RUN chmod -R 755 /usr/share/nginx/html
+
+# Set default port
 ENV PORT=8080
 
-# Documentation only
-EXPOSE 8080
-
-# The standard Nginx entrypoint will handle the startup and port substitution
+# Use the debug entrypoint
+ENTRYPOINT ["/debug-entrypoint.sh"]
