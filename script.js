@@ -265,6 +265,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
 
                         Logger.log('State selected:', selectedState);
+                        
+                        // Track state selection with Firebase Analytics (if available)
+                        if (typeof gtag !== 'undefined') {
+                            gtag('event', 'state_selected', {
+                                state_name: selectedState,
+                                election_status: data.status,
+                                election_type: data.type
+                            });
+                        }
                     } catch (error) {
                         Logger.error('State selection error', error);
                     }
@@ -451,6 +460,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (progressText) progressText.textContent = "Complete";
 
                 Logger.log('Quiz completed. Score:', score, 'Percentage:', percentage);
+                
+                // Track quiz completion with Firebase Analytics (if available)
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'quiz_completed', {
+                        score: score,
+                        total: quizData.length,
+                        percentage: percentage
+                    });
+                }
             } catch (error) {
                 Logger.error('Show results error', error);
             }
