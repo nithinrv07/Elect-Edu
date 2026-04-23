@@ -14,7 +14,22 @@ async function initializeGoogleServices() {
     try {
         Logger.log('Initializing Google Services...');
         
-        // Track initial page view
+        // 1. Initialize Firebase if config is available
+        if (typeof firebase !== 'undefined' && window.firebaseConfig) {
+            try {
+                firebase.initializeApp(window.firebaseConfig);
+                Logger.log('Firebase initialized');
+                
+                // Initialize Analytics
+                if (typeof firebase.analytics === 'function') {
+                    firebase.analytics();
+                }
+            } catch (e) {
+                Logger.warn('Firebase initialization failed:', e.message);
+            }
+        }
+
+        // 2. Track initial page view via gtag
         if (typeof gtag !== 'undefined') {
             try {
                 gtag('event', 'page_view', {
@@ -22,11 +37,11 @@ async function initializeGoogleServices() {
                     page_path: window.location.pathname
                 });
             } catch (e) {
-                Logger.warn('gtag not available');
+                Logger.warn('gtag track failed');
             }
         }
 
-        Logger.log('Google Services initialized');
+        Logger.log('Google Services logic executed');
     } catch (error) {
         Logger.warn('Google Services init warning:', error.message);
     }
