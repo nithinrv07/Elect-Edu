@@ -16,7 +16,8 @@
     <meta property="og:title" content="ElectEdu | Indian Election Process">
     <meta property="og:description" content="Learn about India's democratic process and elections">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://electedu.example.com">
+    <meta property="og:url" content="https://electedu-637114866764.asia-south2.run.app">
+    <link rel="canonical" href="https://electedu-637114866764.asia-south2.run.app">
     
     <!-- Security Headers -->
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -31,14 +32,11 @@
     <link rel="dns-prefetch" href="https://www.youtube.com">
     
     <!-- Google Fonts with font-display: swap & resource hints (optimized for LCP) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Inter:wght@400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet"></noscript>
     
     <!-- FontAwesome Icons (async loaded, deferred) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous"></noscript>
     
     <!-- Select2 CSS (defer non-critical styles) -->
@@ -173,12 +171,12 @@
             <i class="fa-solid fa-bars"></i>
         </button>
         <ul class="nav-links">
-            <li><a href="#hero">Overview</a></li>
-            <li><a href="#my-state">My State</a></li>
-            <li><a href="#basics">Elections</a></li>
-            <li><a href="#process">Steps</a></li>
-            <li><a href="#timeline">Timeline</a></li>
-            <li><a href="#how-to-vote">How to Vote</a></li>
+            <li><a href="#hero" data-i18n="nav-overview">Overview</a></li>
+            <li><a href="#my-state" data-i18n="nav-mystate">My State</a></li>
+            <li><a href="#basics" data-i18n="nav-elections">Elections</a></li>
+            <li><a href="#process" data-i18n="nav-steps">Steps</a></li>
+            <li><a href="#timeline" data-i18n="nav-timeline">Timeline</a></li>
+            <li><a href="#how-to-vote" data-i18n="nav-voting">How to Vote</a></li>
             <li class="language-selector">
                 <select id="language-select" title="Select Language" style="padding: 8px 12px; border-radius: 5px; border: 2px solid #fff; background: transparent; color: #fff; font-weight: 600; cursor: pointer; transition: all 0.3s;">
                     <option value="en">English</option>
@@ -228,7 +226,7 @@
                 <div class="stat-box">
                     <i class="fa-solid fa-check-to-slot"></i>
                     <div class="stat-value" data-target="1" data-suffix="M+">0</div>
-                    <div class="stat-label">Polling Stations</div>
+                    <div class="stat-label" data-i18n="stat-stations">Polling Stations</div>
                 </div>
             </div>
         </div>
@@ -238,8 +236,8 @@
     <section class="section state-tracker fade-bg" id="my-state" aria-label="State election information" role="region">
         <div class="container">
             <div class="section-header text-center">
-                <h2 class="reveal">Your State Election Details</h2>
-                <p class="reveal">Select your state or union territory to see current timelines, upcoming elections, and key statistics.</p>
+                <h2 class="reveal" data-i18n="state-title">Your State Election Details</h2>
+                <p class="reveal" data-i18n="state-desc">Select your state or union territory to see current timelines, upcoming elections, and key statistics.</p>
             </div>
             
             <div class="state-selector-container reveal-up">
@@ -297,46 +295,46 @@
                     <div class="state-grid">
                         <div class="st-card">
                             <i class="fa-solid fa-calendar-days" style="color: var(--primary);"></i>
-                            <h4>Tentative Dates</h4>
+                            <h4 data-i18n="st-dates-label">Tentative Dates</h4>
                             <p id="st-dates">Oct - Nov 2024</p>
                         </div>
                         <div class="st-card">
                             <i class="fa-solid fa-chair" style="color: var(--accent);"></i>
-                            <h4>Assembly Seats</h4>
+                            <h4 data-i18n="st-seats-label">Assembly Seats</h4>
                             <p id="st-seats">288 Constituencies</p>
                         </div>
                         <div class="st-card">
                             <i class="fa-solid fa-users-viewfinder" style="color: var(--secondary);"></i>
-                            <h4>Lok Sabha Seats</h4>
+                            <h4 data-i18n="st-ls-label">Lok Sabha Seats</h4>
                             <p id="st-ls">48 Members</p>
                         </div>
                     </div>
                     
                     <div class="timeline-mini">
-                        <h4>Election Timeline</h4>
+                        <h4 data-i18n="st-timeline-label">Election Timeline</h4>
                         <div class="tl-steps">
                             <div class="st-step active">
                                 <div class="dot"></div>
-                                <span>Poll Notification</span>
+                                <span data-i18n="st-step-notification">Poll Notification</span>
                             </div>
                             <div class="st-step">
                                 <div class="dot"></div>
-                                <span>Nomination</span>
+                                <span data-i18n="st-step-nomination">Nomination</span>
                             </div>
                             <div class="st-step">
                                 <div class="dot"></div>
-                                <span>Polling (Phases)</span>
+                                <span data-i18n="st-step-polling">Polling (Phases)</span>
                             </div>
                             <div class="st-step">
                                 <div class="dot"></div>
-                                <span>Counting Day</span>
+                                <span data-i18n="st-step-counting">Counting Day</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 
                 <div id="state-placeholder" class="placeholder-text">
-                    <p><i class="fa-solid fa-hand-pointer"></i> Please select a state from the dropdown to view its election roadmap.</p>
+                    <p data-i18n="state-info-placeholder"><i class="fa-solid fa-hand-pointer"></i> Please select a state from the dropdown to view its election roadmap.</p>
                 </div>
             </div>
         </div>
@@ -353,18 +351,18 @@
             <div class="grid-3">
                 <div class="card reveal-up" style="--delay: 0.1s">
                     <div class="card-icon"><i class="fa-solid fa-building-columns"></i></div>
-                    <h3>Lok Sabha (General)</h3>
-                    <p>Held every 5 years to elect Members of Parliament (MPs) to the lower house. The party or coalition with a majority (272+ seats) forms the Central Government and elects the Prime Minister.</p>
+                    <h3 data-i18n="card-lok-title">Lok Sabha (General)</h3>
+                    <p data-i18n="card-lok-desc">Held every 5 years to elect Members of Parliament (MPs) to the lower house. The party or coalition with a majority (272+ seats) forms the Central Government and elects the Prime Minister.</p>
                 </div>
                 <div class="card reveal-up" style="--delay: 0.2s">
                     <div class="card-icon"><i class="fa-solid fa-map"></i></div>
-                    <h3>Vidhan Sabha (State)</h3>
-                    <p>Held to elect Members of the Legislative Assembly (MLAs) for each state. The majority party forms the State Government and elects the Chief Minister.</p>
+                    <h3 data-i18n="card-vidhan-title">Vidhan Sabha (State)</h3>
+                    <p data-i18n="card-vidhan-desc">Held to elect Members of the Legislative Assembly (MLAs) for each state. The majority party forms the State Government and elects the Chief Minister.</p>
                 </div>
                 <div class="card reveal-up" style="--delay: 0.3s">
                     <div class="card-icon"><i class="fa-solid fa-house-chimney-user"></i></div>
-                    <h3>Local Bodies</h3>
-                    <p>Elections for Municipalities (urban) and Panchayats (rural). These decide Mayors, Corporators, and Sarpanches, directly impacting local civic issues like roads and water.</p>
+                    <h3 data-i18n="card-local-title">Local Bodies</h3>
+                    <p data-i18n="card-local-desc">Elections for Municipalities (urban) and Panchayats (rural). These decide Mayors, Corporators, and Sarpanches, directly impacting local civic issues like roads and water.</p>
                 </div>
             </div>
         </div>
@@ -374,44 +372,44 @@
     <section class="section process" id="process" aria-label="Voting process steps" role="region">
         <div class="container">
             <div class="section-header">
-                <h2 class="reveal">The Electoral Process</h2>
-                <p class="reveal">How the Election Commission of India (ECI) orchestrates the entire election cycle.</p>
+                <h2 class="reveal" data-i18n="process-title">The Electoral Process</h2>
+                <p class="reveal" data-i18n="process-desc">How the Election Commission of India (ECI) orchestrates the entire election cycle.</p>
             </div>
             
             <div class="timeline-vertical">
                 <div class="tl-item reveal-left">
                     <div class="tl-icon"><i class="fa-solid fa-bullhorn"></i></div>
                     <div class="tl-content">
-                        <h3>1. Election Notification & MCC</h3>
-                        <p>The ECI announces the schedule. The Model Code of Conduct (MCC) immediately activates, restricting governments from announcing new schemes that could influence voters.</p>
+                        <h3 data-i18n="process-step1-title">1. Election Notification & MCC</h3>
+                        <p data-i18n="process-step1-desc">The ECI announces the schedule. The Model Code of Conduct (MCC) immediately activates, restricting governments from announcing new schemes that could influence voters.</p>
                     </div>
                 </div>
                 <div class="tl-item reveal-right">
                     <div class="tl-icon"><i class="fa-solid fa-file-signature"></i></div>
                     <div class="tl-content">
-                        <h3>2. Nominations & Scrutiny</h3>
-                        <p>Candidates file their nomination papers along with affidavits declaring assets and criminal cases. The Returning Officer scrutinizes them to ensure validity.</p>
+                        <h3 data-i18n="process-step2-title">2. Nominations & Scrutiny</h3>
+                        <p data-i18n="process-step2-desc">Candidates file their nomination papers along with affidavits declaring assets and criminal cases. The Returning Officer scrutinizes them to ensure validity.</p>
                     </div>
                 </div>
                 <div class="tl-item reveal-left">
                     <div class="tl-icon"><i class="fa-solid fa-users-rays"></i></div>
                     <div class="tl-content">
-                        <h3>3. Campaigning</h3>
-                        <p>Parties hold mega rallies, roadshows, and distribute manifestos. Campaigning strictly ends 48 hours before polling begins (the 'silence period').</p>
+                        <h3 data-i18n="process-step3-title">3. Campaigning</h3>
+                        <p data-i18n="process-step3-desc">Parties hold mega rallies, roadshows, and distribute manifestos. Campaigning strictly ends 48 hours before polling begins (the 'silence period').</p>
                     </div>
                 </div>
                 <div class="tl-item reveal-right">
                     <div class="tl-icon"><i class="fa-solid fa-check-to-slot"></i></div>
                     <div class="tl-content">
-                        <h3>4. Polling Day</h3>
-                        <p>Voters cast their votes using Electronic Voting Machines (EVMs). For national elections, this often happens in multiple phases across different regions to ensure security.</p>
+                        <h3 data-i18n="process-step4-title">4. Polling Day</h3>
+                        <p data-i18n="process-step4-desc">Voters cast their votes using Electronic Voting Machines (EVMs). For national elections, this often happens in multiple phases across different regions to ensure security.</p>
                     </div>
                 </div>
                 <div class="tl-item reveal-left">
                     <div class="tl-icon"><i class="fa-solid fa-list-ol"></i></div>
                     <div class="tl-content">
-                        <h3>5. Counting & Results</h3>
-                        <p>EVMs from all booths are gathered in strong rooms. On counting day, votes are tallied electronically, and the Returning Officer officially declares the winner.</p>
+                        <h3 data-i18n="process-step5-title">5. Counting & Results</h3>
+                        <p data-i18n="process-step5-desc">EVMs from all booths are gathered in strong rooms. On counting day, votes are tallied electronically, and the Returning Officer officially declares the winner.</p>
                     </div>
                 </div>
             </div>
@@ -425,8 +423,8 @@
         <section class="how-to-vote" id="how-to-vote">
             <div class="container">
                 <div style="text-align: center; margin-bottom: 3rem;">
-                    <h2 style="font-size: 2.5rem; color: #1e40af; margin-bottom: 1rem;">Official Voting Guide</h2>
-                    <p style="font-size: 1.1rem; color: #555; max-width: 800px; margin: 0 auto;">Watch this official guide by the Election Commission of India on how to correctly cast your vote using Electronic Voting Machines (EVM) and VVPAT.</p>
+                    <h2 style="font-size: 2.5rem; color: #1e40af; margin-bottom: 1rem;" data-i18n="voting-title">Official Voting Guide</h2>
+                    <p style="font-size: 1.1rem; color: #555; max-width: 800px; margin: 0 auto;" data-i18n="voting-desc">Watch this official guide by the Election Commission of India on how to correctly cast your vote using Electronic Voting Machines (EVM) and VVPAT.</p>
                 </div>
 
                 <!-- VIDEO SECTION -->
@@ -445,10 +443,10 @@
                         </iframe>
                     </div>
                     <div style="text-align: center; margin-top: 1.5rem;">
-                        <a href="https://www.youtube.com/watch?v=ZJReQ8ao0SU&start=15" target="_blank" style="display: inline-block; padding: 12px 30px; background: #2563eb; color: white; border-radius: 6px; text-decoration: none; font-size: 15px; font-weight: 600; transition: all 0.3s; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);">
+                        <a href="https://www.youtube.com/watch?v=ZJReQ8ao0SU&start=15" target="_blank" rel="noopener noreferrer" style="display: inline-block; padding: 12px 30px; background: #2563eb; color: white; border-radius: 6px; text-decoration: none; font-size: 15px; font-weight: 600; transition: all 0.3s; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);" data-i18n="voting-play">
                             <i class="fa-solid fa-play"></i> Watch on YouTube
                         </a>
-                        <a href="https://www.eci.gov.in/" target="_blank" style="display: inline-block; margin-left: 1rem; padding: 12px 30px; background: #1f2937; color: white; border-radius: 6px; text-decoration: none; font-size: 15px; font-weight: 600; transition: all 0.3s; box-shadow: 0 4px 15px rgba(31, 41, 55, 0.3);">
+                        <a href="https://www.eci.gov.in/" target="_blank" rel="noopener noreferrer" style="display: inline-block; margin-left: 1rem; padding: 12px 30px; background: #1f2937; color: white; border-radius: 6px; text-decoration: none; font-size: 15px; font-weight: 600; transition: all 0.3s; box-shadow: 0 4px 15px rgba(31, 41, 55, 0.3);" data-i18n="voting-eci">
                             <i class="fa-solid fa-globe"></i> Election Commission Portal
                         </a>
                     </div>
@@ -457,24 +455,27 @@
                 <!-- VOTING STEPS AND CARDS -->
                 <div class="grid-2 align-center">
                     <div class="vote-content reveal-left">
-                        <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Be Prepared for Voting Day</h3>
+                        <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem;" data-i18n="voting-prepare-title">Be Prepared for Voting Day</h3>
                         <ul class="check-list">
                             <li>
                                 <i class="fa-solid fa-id-card"></i>
                                 <div>
-                                    <strong>Get your Voter ID (EPIC):</strong> Ensure your name is on the Electoral Roll. You can check this online at the NVSP portal or the Voter Helpline App.
+                                    <strong data-i18n="voting-step1-title">Get your Voter ID (EPIC):</strong>
+                                    <span data-i18n="voting-step1-desc">Ensure your name is on the Electoral Roll. You can check this online at the <a href="https://voters.eci.gov.in/" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: underline;">NVSP portal</a> or the <a href="https://play.google.com/store/apps/details?id=com.webcontent.voterhelpline" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: underline;">Voter Helpline App</a>.</span>
                                 </div>
                             </li>
                             <li>
                                 <i class="fa-solid fa-building-flag"></i>
                                 <div>
-                                    <strong>Find your Polling Booth:</strong> Check your specific part number and polling station via your voter slip distributed by Booth Level Officers (BLOs).
+                                    <strong data-i18n="voting-step2-title">Find your Polling Booth:</strong>
+                                    <span data-i18n="voting-step2-desc">Check your specific part number and polling station via your voter slip distributed by Booth Level Officers (BLOs).</span>
                                 </div>
                             </li>
                             <li>
                                 <i class="fa-solid fa-fingerprint"></i>
                                 <div>
-                                    <strong>Valid ID Proof:</strong> Bring your EPIC card. If you don't have it, bring an approved alternative ID (Aadhaar, PAN, Passport, Driving License).
+                                    <strong data-i18n="voting-step3-title">Valid ID Proof:</strong>
+                                    <span data-i18n="voting-step3-desc">Bring your EPIC card. If you don't have it, bring an approved alternative ID (Aadhaar, PAN, Passport, Driving License).</span>
                                 </div>
                             </li>
                         </ul>
@@ -497,8 +498,8 @@
                         <div class="v-card">
                             <div class="v-icon"><i class="fa-solid fa-xmark"></i></div>
                             <div>
-                                <h4>NOTA (None of the Above)</h4>
-                                <span class="v-desc">If you don't support any candidate, press the pink NOTA button at the bottom.</span>
+                                <h4 data-i18n="voting-nota-title">NOTA (None of the Above)</h4>
+                                <span class="v-desc" data-i18n="voting-nota-desc">If you don't support any candidate, press the pink NOTA button at the bottom.</span>
                             </div>
                         </div>
                     </div>
@@ -513,44 +514,44 @@
         <div class="container">
             <div class="section-header text-center">
                 <h2 class="reveal" data-i18n="faq-title">Frequently Asked Questions</h2>
-                <p class="reveal">Clearing up common inquiries about the Indian electoral system.</p>
+                <p class="reveal" data-i18n="faq-desc">Clearing up common inquiries about the Indian electoral system.</p>
             </div>
             
             <div class="accordion-container reveal-up">
                 <div class="accordion-item">
                     <button class="accordion-btn">
-                        <span>What is the minimum voting age in India?</span>
+                        <span data-i18n="faq-q1">What is the minimum voting age in India?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </button>
                     <div class="accordion-content">
-                        <p>The minimum voting age in India is 18 years. Anyone who has attained the age of 18 on the qualifying date (usually 1st January of the year) can apply to register as a voter.</p>
+                        <p data-i18n="faq-a1">The minimum voting age in India is 18 years. Anyone who has attained the age of 18 on the qualifying date (usually 1st January of the year) can apply to register as a voter.</p>
                     </div>
                 </div>
                 <div class="accordion-item">
                     <button class="accordion-btn">
-                        <span>I lost my Voter ID (EPIC) card. Can I still vote?</span>
+                        <span data-i18n="faq-q2">I lost my Voter ID (EPIC) card. Can I still vote?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </button>
                     <div class="accordion-content">
-                        <p>Yes. As long as your name is on the electoral roll, you can vote. You will need to show an alternative photo ID approved by the Election Commission, such as your Aadhaar card, PAN card, Passport, or Driving License.</p>
+                        <p data-i18n="faq-a2">Yes. As long as your name is on the electoral roll, you can vote. You will need to show an alternative photo ID approved by the Election Commission, such as your Aadhaar card, PAN card, Passport, or Driving License.</p>
                     </div>
                 </div>
                 <div class="accordion-item">
                     <button class="accordion-btn">
-                        <span>Can Non-Resident Indians (NRIs) vote?</span>
+                        <span data-i18n="faq-q3">Can Non-Resident Indians (NRIs) vote?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </button>
                     <div class="accordion-content">
-                        <p>Yes, NRIs holding a valid Indian Passport can register as overseas electors. Currently, they must vote in person at their designated polling station in India; online or postal ballots are not yet available for regular NRIs.</p>
+                        <p data-i18n="faq-a3">Yes, NRIs holding a valid Indian Passport can register as overseas electors. Currently, they must vote in person at their designated polling station in India; online or postal ballots are not yet available for regular NRIs.</p>
                     </div>
                 </div>
                 <div class="accordion-item">
                     <button class="accordion-btn">
-                        <span>What happens if NOTA gets the highest votes?</span>
+                        <span data-i18n="faq-q4">What happens if NOTA gets the highest votes?</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </button>
                     <div class="accordion-content">
-                        <p>Even if NOTA (None of the Above) receives the maximum votes in a constituency, the candidate securing the second-highest number of valid votes is declared the winner. NOTA does not force a re-election.</p>
+                        <p data-i18n="faq-a4">Even if NOTA (None of the Above) receives the maximum votes in a constituency, the candidate securing the second-highest number of valid votes is declared the winner. NOTA does not force a re-election.</p>
                     </div>
                 </div>
             </div>
@@ -564,29 +565,29 @@
                 <div class="footer-brand">
                     <div class="nav-brand">
                         <img src="./transparent_logo.png" alt="ECI Logo" class="brand-logo" width="40" height="40" loading="lazy">
-                        <span>Democracy Decoded</span>
+                        <span data-i18n="footer-brand">Democracy Decoded</span>
                     </div>
-                    <p>Empowering Indian citizens with factual, non-partisan information regarding electoral processes and democratic engagement.</p>
+                    <p data-i18n="footer-mission">Empowering Indian citizens with factual, non-partisan information regarding electoral processes and democratic engagement.</p>
                 </div>
                 <div class="footer-links">
-                    <h4>Navigation</h4>
+                    <h4 data-i18n="footer-nav-title">Navigation</h4>
                     <ul>
-                        <li><a href="#hero">Overview</a></li>
-                        <li><a href="#my-state">State Info</a></li>
-                        <li><a href="#process">Step-by-step</a></li>
+                        <li><a href="#hero" data-i18n="footer-overview">Overview</a></li>
+                        <li><a href="#my-state" data-i18n="footer-state">State Info</a></li>
+                        <li><a href="#process" data-i18n="footer-steps">Step-by-step</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
-                    <h4>Legal</h4>
+                    <h4 data-i18n="footer-legal-title">Legal</h4>
                     <ul>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Disclaimer</a></li>
+                        <li><a href="https://voters.eci.gov.in/privacy-policy" target="_blank" rel="noopener noreferrer" data-i18n="footer-privacy">Privacy Policy</a></li>
+                        <li><a href="https://voters.eci.gov.in/terms-condition" target="_blank" rel="noopener noreferrer" data-i18n="footer-terms">Terms of Service</a></li>
+                        <li><a href="https://www.eci.gov.in/disclaimer" target="_blank" rel="noopener noreferrer" data-i18n="footer-disclaimer">Disclaimer</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 ElectEdu. Educational platform built to understand Indian Elections.</p>
+                <p data-i18n="footer-copyright">&copy; 2026 ElectEdu. Educational platform built to understand Indian Elections.</p>
             </div>
         </div>
     </footer>

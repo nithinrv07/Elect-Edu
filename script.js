@@ -140,6 +140,9 @@ const TranslationManager = {
                     element.placeholder = langData[key];
                 } else if (element.tagName === 'OPTION') {
                     element.textContent = langData[key];
+                } else if (key.includes('title') || key.includes('subtitle') || key.includes('desc') || key.includes('copyright')) {
+                    // Use innerHTML for elements that might contain HTML/spans
+                    element.innerHTML = langData[key];
                 } else {
                     element.textContent = langData[key];
                 }
@@ -179,6 +182,20 @@ const TranslationManager = {
             gtag('event', 'language_changed', {
                 language: lang
             });
+        }
+
+        // Refresh state info panel if a state is selected
+        const stateSelect = document.getElementById('state-select');
+        if (stateSelect && stateSelect.value) {
+            // Trigger Select2 change event if jQuery/Select2 is available
+            if (typeof $ !== 'undefined') {
+                $(stateSelect).trigger({
+                    type: 'select2:select',
+                    params: {
+                        data: { id: stateSelect.value }
+                    }
+                });
+            }
         }
     },
 
@@ -422,17 +439,31 @@ document.addEventListener('DOMContentLoaded', async () => {
                             return;
                         }
 
-                        // Sanitize and update text content
+                        // Sanitize and update text content with translations
                         statePlaceholder.style.display = 'none';
                         stateInfoPanel.style.display = 'block';
                         
+                        const lang = TranslationManager.currentLanguage;
+                        const langData = translations[lang] || translations['en'];
+                        
                         stName.textContent = sanitizeHTML(selectedState);
                         stDates.textContent = sanitizeHTML(data.dates);
-                        stSeats.textContent = sanitizeHTML(data.seats) + " Constituencies";
-                        stLs.textContent = sanitizeHTML(data.ls) + " Members";
                         
-                        // Update badge with sanitization
-                        stStatus.textContent = sanitizeHTML(data.status);
+                        // Localized labels
+                        const constLabel = langData['label-constituencies'] || 'Constituencies';
+                        const memLabel = langData['label-members'] || 'Members';
+                        
+                        stSeats.textContent = sanitizeHTML(data.seats) + " " + constLabel;
+                        stLs.textContent = sanitizeHTML(data.ls) + " " + memLabel;
+                        
+                        // Map status to translation key
+                        let statusKey = 'status-upcoming';
+                        const statusLower = data.status.toLowerCase();
+                        if (statusLower.includes('recent') || statusLower.includes('completed')) statusKey = 'status-recent';
+                        if (statusLower.includes('upcoming')) statusKey = 'status-upcoming';
+                        if (statusLower.includes('current')) statusKey = 'status-current';
+                        
+                        stStatus.textContent = langData[statusKey] || data.status;
                         stStatus.className = 'st-badge ' + (data.type === 'recent' ? 'recent' : data.type === 'upcoming' ? 'upcoming' : 'other');
                         
                         // Update timeline steps
