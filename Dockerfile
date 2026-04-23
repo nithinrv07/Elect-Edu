@@ -1,33 +1,26 @@
 FROM nginx:1.25-alpine
 
 LABEL maintainer="ElectEdu Team"
-LABEL version="2.2"
+LABEL version="2.3"
 
-# Install curl for health checks and envsubst (gettext)
-RUN apk add --no-cache curl gettext
+# Install curl for health checks
+RUN apk add --no-cache curl
 
-# Create required directories with proper permissions
-# We ensure /tmp is wide open for the nginx user
-RUN mkdir -p /var/cache/nginx /var/log/nginx /var/run /tmp && \
-    chmod -R 777 /var/cache/nginx /var/log/nginx /var/run /tmp
-
-# Copy configuration template and entrypoint to /tmp
-COPY nginx.conf.template /tmp/nginx.conf.template
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+# Copy the template to the standard Nginx templates directory
+# Standard Nginx entrypoint (>1.19) automatically runs envsubst on these
+COPY default.conf.template /etc/nginx/templates/default.conf.template
 
 # Copy application files
 COPY . /usr/share/nginx/html/
 
-# Set proper permissions for nginx user
+# Set proper permissions
 RUN chown -R nginx:nginx /usr/share/nginx/html && \
     chmod -R 755 /usr/share/nginx/html
 
-# Expose port (Cloud Run uses $PORT)
+# Set default PORT for envsubst (Cloud Run will override this)
+ENV PORT=8080
+
+# Documentation only
 EXPOSE 8080
 
-# We remove the Docker HEALTHCHECK to allow Cloud Run's native health check 
-# to manage the lifecycle, avoiding port mismatch issues during startup.
-
-# Run entrypoint script
-ENTRYPOINT ["/entrypoint.sh"]
+# The standard Nginx entrypoint will handle the startup and port substitution
