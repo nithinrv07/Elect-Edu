@@ -26,3 +26,13 @@ DEPLOYMENT.md
 *.md
 .gitattributes
 LICENSE
+package.json
+package-lock.json
+jest.config.js
+jest.setup.js
+tests.js
+coverage
+.next
+.nuxt
+dist
+build
