@@ -1,22 +1,22 @@
 FROM nginx:1.25-alpine
 
 LABEL maintainer="ElectEdu Team"
-LABEL version="2.0"
+LABEL version="2.1"
 
-# Install curl for health checks
-RUN apk add --no-cache curl
+# Install curl for health checks and envsubst (gettext)
+RUN apk add --no-cache curl gettext
 
 # Create required directories with proper permissions
-RUN mkdir -p /var/cache/nginx /var/log/nginx /var/run && \
+RUN mkdir -p /var/cache/nginx /var/log/nginx /var/run /tmp && \
     touch /var/log/nginx/access.log /var/log/nginx/error.log && \
-    chown -R nginx:nginx /var/cache/nginx /var/log/nginx /var/run && \
+    chown -R nginx:nginx /var/cache/nginx /var/log/nginx /var/run /tmp && \
+    chmod 777 /tmp && \
     chmod 755 /var/log/nginx /var/cache/nginx /var/run
 
-# Remove default configs
-RUN rm -rf /etc/nginx/conf.d/* /etc/nginx/nginx.conf
-
-# Copy main nginx config
-COPY nginx.conf /etc/nginx/nginx.conf
+# Copy configuration template and entrypoint
+COPY nginx.conf.template /etc/nginx/nginx.conf.template
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 # Copy application files
 COPY . /usr/share/nginx/html/
@@ -25,13 +25,12 @@ COPY . /usr/share/nginx/html/
 RUN chown -R nginx:nginx /usr/share/nginx/html && \
     chmod -R 755 /usr/share/nginx/html
 
-# Expose port 8080
+# Expose port (Documentation only, Cloud Run uses $PORT)
 EXPOSE 8080
 
-# Health check
+# Health check (Uses internal localhost check)
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
-    CMD curl -f http://localhost:8080/health 2>/dev/null || exit 1
+    CMD curl -f http://localhost:${PORT:-8080}/health 2>/dev/null || exit 1
 
-# Run nginx
-CMD ["nginx", "-g", "daemon off;"]
-
+# Run entrypoint script
+ENTRYPOINT ["/entrypoint.sh"]

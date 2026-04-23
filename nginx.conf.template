@@ -1,4 +1,4 @@
-# Nginx configuration for ElectEdu on Google Cloud Run
+# Nginx configuration template for ElectEdu on Google Cloud Run
 worker_processes auto;
 error_log /dev/stderr warn;
 pid /tmp/nginx.pid;
@@ -36,7 +36,8 @@ http {
     gzip_disable "msie6";
 
     server {
-        listen 8080;
+        # Listen on the PORT environment variable provided by Cloud Run
+        listen ${PORT};
         server_name _;
 
         root /usr/share/nginx/html;
@@ -89,5 +90,3 @@ http {
         error_page 500 502 503 504 /index.html;
     }
 }
-
-
