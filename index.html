@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElectEdu | Indian Election Process</title>
+    <meta name="description" content="An interactive, easy-to-follow guide explaining the Indian election process, voting methods, and EVMs.">
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Select2 Select w/ Search -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-brand">
+            <img src="./transparent_logo.png" alt="ECI Logo" class="brand-logo">
+            <span>ElectEdu</span>
+        </div>
+        <button class="mobile-toggle" aria-label="Toggle menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <ul class="nav-links">
+            <li class="translate-btn"><div id="google_translate_element"></div></li>
+            <li><a href="#hero">Overview</a></li>
+            <li><a href="#my-state">My State</a></li>
+            <li><a href="#basics">Elections</a></li>
+            <li><a href="#process">Steps</a></li>
+            <li><a href="#timeline">Timeline</a></li>
+            <li><a href="#how-to-vote">How to Vote</a></li>
+            <li><a href="#tools">Quiz</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" id="hero">
+        <div class="hero-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+        <div class="container hero-content">
+            <span class="badge">Election Commission Info Portal</span>
+            <h1>The World's Largest <span>Democratic Exercise</span></h1>
+            <p>A comprehensive guide to demystifying the Indian election process. Learn how 900+ million voices shape the future of the nation.</p>
+            <div class="hero-actions">
+                <a href="#my-state" class="btn btn-primary">
+                    Find Your State Info <i class="fa-solid fa-location-dot"></i>
+                </a>
+                <a href="#tools" class="btn btn-secondary">
+                    Test Your Knowledge
+                </a>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-box">
+                    <i class="fa-solid fa-users"></i>
+                    <div class="stat-value" data-target="968" data-suffix="M+">0</div>
+                    <div class="stat-label">Registered Voters</div>
+                </div>
+                <div class="stat-box">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    <div class="stat-value" data-target="36" data-suffix="">0</div>
+                    <div class="stat-label">States & UTs</div>
+                </div>
+                <div class="stat-box">
+                    <i class="fa-solid fa-check-to-slot"></i>
+                    <div class="stat-value" data-target="1" data-suffix="M+">0</div>
+                    <div class="stat-label">Polling Stations</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- State Selection Tracker -->
+    <section class="section state-tracker fade-bg" id="my-state">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="reveal">Your State Election Details</h2>
+                <p class="reveal">Select your state or union territory to see current timelines, upcoming elections, and key statistics.</p>
+            </div>
+            
+            <div class="state-selector-container reveal-up">
+                <div class="selector-controls">
+                    <label for="state-select"><i class="fa-solid fa-map-pin"></i> Select State/UT:</label>
+                    <select id="state-select" class="custom-select">
+                        <option value="" disabled selected>-- Choose your state --</option>
+                        <option value="Andaman and Nicobar Islands">Andaman & Nicobar Islands</option>
+                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                        <option value="Assam">Assam</option>
+                        <option value="Bihar">Bihar</option>
+                        <option value="Chandigarh">Chandigarh</option>
+                        <option value="Chhattisgarh">Chhattisgarh</option>
+                        <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra & Nagar Haveli & Daman & Diu</option>
+                        <option value="Delhi">Delhi (NCT)</option>
+                        <option value="Goa">Goa</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Haryana">Haryana</option>
+                        <option value="Himachal Pradesh">Himachal Pradesh</option>
+                        <option value="Jammu and Kashmir">Jammu & Kashmir</option>
+                        <option value="Jharkhand">Jharkhand</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Kerala">Kerala</option>
+                        <option value="Ladakh">Ladakh</option>
+                        <option value="Lakshadweep">Lakshadweep</option>
+                        <option value="Madhya Pradesh">Madhya Pradesh</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Manipur">Manipur</option>
+                        <option value="Meghalaya">Meghalaya</option>
+                        <option value="Mizoram">Mizoram</option>
+                        <option value="Nagaland">Nagaland</option>
+                        <option value="Odisha">Odisha</option>
+                        <option value="Puducherry">Puducherry</option>
+                        <option value="Punjab">Punjab</option>
+                        <option value="Rajasthan">Rajasthan</option>
+                        <option value="Sikkim">Sikkim</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
+                        <option value="Telangana">Telangana</option>
+                        <option value="Tripura">Tripura</option>
+                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                        <option value="Uttarakhand">Uttarakhand</option>
+                        <option value="West Bengal">West Bengal</option>
+                    </select>
+                </div>
+                
+
+                
+                <div class="state-info-panel" id="state-info-panel" style="display: none;">
+                    <div class="state-header">
+                        <h3 id="st-name">State Name</h3>
+                        <span class="st-badge" id="st-status">Upcoming State Election</span>
+                    </div>
+                    
+                    <div class="state-grid">
+                        <div class="st-card">
+                            <i class="fa-solid fa-calendar-days" style="color: var(--primary);"></i>
+                            <h4>Tentative Dates</h4>
+                            <p id="st-dates">Oct - Nov 2024</p>
+                        </div>
+                        <div class="st-card">
+                            <i class="fa-solid fa-chair" style="color: var(--accent);"></i>
+                            <h4>Assembly Seats</h4>
+                            <p id="st-seats">288 Constituencies</p>
+                        </div>
+                        <div class="st-card">
+                            <i class="fa-solid fa-users-viewfinder" style="color: var(--secondary);"></i>
+                            <h4>Lok Sabha Seats</h4>
+                            <p id="st-ls">48 Members</p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-mini">
+                        <h4>Election Timeline</h4>
+                        <div class="tl-steps">
+                            <div class="st-step active">
+                                <div class="dot"></div>
+                                <span>Poll Notification</span>
+                            </div>
+                            <div class="st-step">
+                                <div class="dot"></div>
+                                <span>Nomination</span>
+                            </div>
+                            <div class="st-step">
+                                <div class="dot"></div>
+                                <span>Polling (Phases)</span>
+                            </div>
+                            <div class="st-step">
+                                <div class="dot"></div>
+                                <span>Counting Day</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="state-placeholder" class="placeholder-text">
+                    <p><i class="fa-solid fa-hand-pointer"></i> Please select a state from the dropdown to view its election roadmap.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Basics Section -->
+    <section class="section basics dark-section" id="basics">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="reveal">The Indian Election Framework</h2>
+                <p class="reveal">India holds regular elections at three different tiers, ensuring grassroots democracy up to the federal center.</p>
+            </div>
+            
+            <div class="grid-3">
+                <div class="card reveal-up" style="--delay: 0.1s">
+                    <div class="card-icon"><i class="fa-solid fa-building-columns"></i></div>
+                    <h3>Lok Sabha (General)</h3>
+                    <p>Held every 5 years to elect Members of Parliament (MPs) to the lower house. The party or coalition with a majority (272+ seats) forms the Central Government and elects the Prime Minister.</p>
+                </div>
+                <div class="card reveal-up" style="--delay: 0.2s">
+                    <div class="card-icon"><i class="fa-solid fa-map"></i></div>
+                    <h3>Vidhan Sabha (State)</h3>
+                    <p>Held to elect Members of the Legislative Assembly (MLAs) for each state. The majority party forms the State Government and elects the Chief Minister.</p>
+                </div>
+                <div class="card reveal-up" style="--delay: 0.3s">
+                    <div class="card-icon"><i class="fa-solid fa-house-chimney-user"></i></div>
+                    <h3>Local Bodies</h3>
+                    <p>Elections for Municipalities (urban) and Panchayats (rural). These decide Mayors, Corporators, and Sarpanches, directly impacting local civic issues like roads and water.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Step-by-Step Process -->
+    <section class="section process" id="process">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="reveal">The Electoral Process</h2>
+                <p class="reveal">How the Election Commission of India (ECI) orchestrates the entire election cycle.</p>
+            </div>
+            
+            <div class="timeline-vertical">
+                <div class="tl-item reveal-left">
+                    <div class="tl-icon"><i class="fa-solid fa-bullhorn"></i></div>
+                    <div class="tl-content">
+                        <h3>1. Election Notification & MCC</h3>
+                        <p>The ECI announces the schedule. The Model Code of Conduct (MCC) immediately activates, restricting governments from announcing new schemes that could influence voters.</p>
+                    </div>
+                </div>
+                <div class="tl-item reveal-right">
+                    <div class="tl-icon"><i class="fa-solid fa-file-signature"></i></div>
+                    <div class="tl-content">
+                        <h3>2. Nominations & Scrutiny</h3>
+                        <p>Candidates file their nomination papers along with affidavits declaring assets and criminal cases. The Returning Officer scrutinizes them to ensure validity.</p>
+                    </div>
+                </div>
+                <div class="tl-item reveal-left">
+                    <div class="tl-icon"><i class="fa-solid fa-users-rays"></i></div>
+                    <div class="tl-content">
+                        <h3>3. Campaigning</h3>
+                        <p>Parties hold mega rallies, roadshows, and distribute manifestos. Campaigning strictly ends 48 hours before polling begins (the 'silence period').</p>
+                    </div>
+                </div>
+                <div class="tl-item reveal-right">
+                    <div class="tl-icon"><i class="fa-solid fa-check-to-slot"></i></div>
+                    <div class="tl-content">
+                        <h3>4. Polling Day</h3>
+                        <p>Voters cast their votes using Electronic Voting Machines (EVMs). For national elections, this often happens in multiple phases across different regions to ensure security.</p>
+                    </div>
+                </div>
+                <div class="tl-item reveal-left">
+                    <div class="tl-icon"><i class="fa-solid fa-list-ol"></i></div>
+                    <div class="tl-content">
+                        <h3>5. Counting & Results</h3>
+                        <p>EVMs from all booths are gathered in strong rooms. On counting day, votes are tallied electronically, and the Returning Officer officially declares the winner.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Vote -->
+    <section class="section vote-guide dark-section" id="how-to-vote">
+        <div class="container">
+            <div class="grid-2 align-center">
+                <div class="vote-content reveal-left">
+                    <h2>How to Cast Your Vote</h2>
+                    <p>Voting in India is primarily done through EVMs. Here is what you need to be prepared for Voting Day.</p>
+                    
+                    <ul class="check-list">
+                        <li>
+                            <i class="fa-solid fa-id-card"></i>
+                            <div>
+                                <strong>Get your Voter ID (EPIC):</strong> Ensure your name is on the Electoral Roll. You can check this online at the NVSP portal or the Voter Helpline App.
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-building-flag"></i>
+                            <div>
+                                <strong>Find your Polling Booth:</strong> Check your specific part number and polling station via your voter slip distributed by Booth Level Officers (BLOs).
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-fingerprint"></i>
+                            <div>
+                                <strong>Valid ID Proof:</strong> Bring your EPIC card. If you don't have it, bring an approved alternative ID (Aadhaar, PAN, Passport, Driving License).
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="vote-cards reveal-right">
+                    <div class="v-card">
+                        <div class="v-icon"><i class="fa-solid fa-calculator"></i></div>
+                        <div>
+                            <h4>EVM (Electronic Voting Machine)</h4>
+                            <span class="v-desc">Press the blue button next to your chosen candidate's symbol.</span>
+                        </div>
+                    </div>
+                    <div class="v-card">
+                        <div class="v-icon"><i class="fa-solid fa-receipt"></i></div>
+                        <div>
+                            <h4>VVPAT Verification</h4>
+                            <span class="v-desc">A slip will print behind a glass window displaying your choice for 7 seconds.</span>
+                        </div>
+                    </div>
+                    <div class="v-card">
+                        <div class="v-icon"><i class="fa-solid fa-xmark"></i></div>
+                        <div>
+                            <h4>NOTA (None of the Above)</h4>
+                            <span class="v-desc">If you don't support any candidate, press the pink NOTA button at the bottom.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Tools -->
+    <section class="section tools" id="tools">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="reveal">Official Voting Guide</h2>
+                <p class="reveal">Watch this official guide by the Election Commission of India on how to correctly cast your vote using Electronic Voting Machines (EVM) and VVPAT.</p>
+            </div>
+            
+            <div class="video-container reveal-up" style="max-width: 800px; margin: 0 auto; border-radius: var(--border-radius); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <iframe width="100%" height="450" src="https://www.youtube.com/embed/ZJReQ8ao0SU?si=Ph9M5rVY55J130Ri&amp;start=15" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="display: block; border: none;"></iframe>
+            </div>
+            
+            <div class="reveal-up" style="margin-top: 4rem;">
+                <h3 class="text-center" style="margin-bottom: 2rem;">Official Resources</h3>
+                <div class="resources-container" style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+                    <a href="https://voters.eci.gov.in" target="_blank" class="resource-card" style="flex: 1 1 300px; max-width: 350px;">
+                        <i class="fa-solid fa-globe"></i>
+                        <h4>Voters' Services Portal</h4>
+                        <p>Register, modify, or check your electoral roll details</p>
+                    </a>
+                    <a href="#" class="resource-card" style="flex: 1 1 300px; max-width: 350px;">
+                        <i class="fa-solid fa-mobile-screen"></i>
+                        <h4>Voter Helpline App</h4>
+                        <p>Download the official ECI app</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQs -->
+    <section class="section faqs dark-section" id="faqs">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2 class="reveal">Frequently Asked Questions</h2>
+                <p class="reveal">Clearing up common inquiries about the Indian electoral system.</p>
+            </div>
+            
+            <div class="accordion-container reveal-up">
+                <div class="accordion-item">
+                    <button class="accordion-btn">
+                        <span>What is the minimum voting age in India?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>The minimum voting age in India is 18 years. Anyone who has attained the age of 18 on the qualifying date (usually 1st January of the year) can apply to register as a voter.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-btn">
+                        <span>I lost my Voter ID (EPIC) card. Can I still vote?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Yes. As long as your name is on the electoral roll, you can vote. You will need to show an alternative photo ID approved by the Election Commission, such as your Aadhaar card, PAN card, Passport, or Driving License.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-btn">
+                        <span>Can Non-Resident Indians (NRIs) vote?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Yes, NRIs holding a valid Indian Passport can register as overseas electors. Currently, they must vote in person at their designated polling station in India; online or postal ballots are not yet available for regular NRIs.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-btn">
+                        <span>What happens if NOTA gets the highest votes?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p>Even if NOTA (None of the Above) receives the maximum votes in a constituency, the candidate securing the second-highest number of valid votes is declared the winner. NOTA does not force a re-election.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="nav-brand">
+                        <img src="./transparent_logo.png" alt="ECI Logo" class="brand-logo">
+                        <span>Democracy Decoded</span>
+                    </div>
+                    <p>Empowering Indian citizens with factual, non-partisan information regarding electoral processes and democratic engagement.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="#hero">Overview</a></li>
+                        <li><a href="#my-state">State Info</a></li>
+                        <li><a href="#process">Step-by-step</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ElectEdu. Educational platform built to understand Indian Elections.</p>
+            </div>
+    <!-- Google Translate Script -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'hi,bn,te,mr,ta,ur,gu,kn,or,pa,ml', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    
+    <script src="script.js"></script>
+</body>
+</html>
