@@ -1,18 +1,12 @@
 #!/bin/sh
-# Debug entrypoint for Cloud Run
-echo "--- Container Starting ---"
-echo "Current User: $(id)"
-echo "Target Port (PORT env): ${PORT}"
-
-# Use 8080 as a fallback if PORT is missing
+# Ultimate Universal Entrypoint
 export PORT=${PORT:-8080}
 
-# Replace ${PORT} in the template
-echo "Substituting PORT into Nginx config..."
-envsubst '${PORT}' < /etc/nginx/templates/default.conf.template > /etc/nginx/conf.d/default.conf
+echo "--- ElectEdu Deployment v2.5 ---"
+echo "Port: ${PORT}"
 
-echo "Final Nginx Config (first 10 lines):"
-head -n 10 /etc/nginx/conf.d/default.conf
+# Generate full config in /tmp
+envsubst '${PORT}' < /tmp/nginx.conf.template > /tmp/nginx.conf
 
 echo "Starting Nginx..."
-exec nginx -g 'daemon off;'
+exec nginx -c /tmp/nginx.conf -g 'daemon off;'
