@@ -22,22 +22,31 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://code.jquery.com https://cdnjs.cloudflare.com https://www.googletagmanager.com https://www.youtube.com https://www.gstatic.com https://translate.google.com https://translate.googleapis.com https://firebaseinstallations.googleapis.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://translate.googleapis.com https://www.gstatic.com; img-src 'self' data: https: blob:; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; connect-src 'self' https: https://www.google-analytics.com https://*.firebaseio.com https://*.firebasedatabase.app https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://translate.googleapis.com https://translate.google.com https://firebaseinstallations.googleapis.com https://www.googleapis.com https://www.gstatic.com; frame-src https://www.youtube.com https://www.google.com; base-uri 'self'">
     
-    <!-- Preconnect for Performance -->
+    <!-- Performance: Preconnect & DNS-Prefetch for Critical Resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.youtube.com">
     
-    <!-- Google Fonts: Inter & Outfit -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Google Fonts with font-display: swap & resource hints (optimized for LCP) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Inter:wght@400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet"></noscript>
     
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous">
+    <!-- FontAwesome Icons (async loaded, deferred) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous"></noscript>
     
-    <!-- Select2 Select with Search -->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- Select2 CSS (defer non-critical styles) -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" media="print" onload="this.media='all'"/>
+    
+    <!-- jQuery & Select2 JS (deferred with defer attribute) -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
     
     <!-- Local Stylesheet -->
     <link rel="stylesheet" href="style.css">
@@ -50,6 +59,106 @@
         gtag('js', new Date());
         gtag('config', 'G-4BJV5P9M0V', {'anonymize_ip': true});
     </script>
+
+    <!-- Schema.org Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "ElectEdu",
+        "alternateName": "Election Education Platform",
+        "description": "An interactive, easy-to-follow guide explaining the Indian election process, voting methods, and EVMs.",
+        "url": "https://electedu-637114866764.asia-south2.run.app",
+        "logo": "https://electedu-637114866764.asia-south2.run.app/transparent_logo.png",
+        "sameAs": [
+            "https://www.eci.gov.in"
+        ],
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "Customer Support",
+            "areaServed": "IN",
+            "availableLanguage": ["en", "hi", "bn", "te", "mr", "ta", "gu", "kn", "or", "pa", "ml", "ur"]
+        },
+        "educationalCredentialAwarded": "Election Awareness Certificate",
+        "educationalLevel": "General Public",
+        "teaches": ["Indian Elections", "Voting Process", "EVM Technology", "Democracy"],
+        "inLanguage": ["en", "hi", "bn", "te", "mr", "ta", "gu", "kn", "or", "pa", "ml", "ur"],
+        "author": {
+            "@type": "Organization",
+            "name": "ElectEdu Team"
+        }
+    }
+    </script>
+
+    <!-- FAQ Schema for Search Results -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is the Indian election process?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The Indian election process is a multi-phase democratic system where eligible citizens vote to elect representatives for national, state, and local governments."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do EVMs work in Indian elections?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Electronic Voting Machines (EVMs) are used to record and count votes electronically, ensuring accuracy and preventing tampering in the voting process."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What are the eligibility criteria to vote?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "To vote in Indian elections, you must be an Indian citizen, at least 18 years old, not disqualified under law, and registered as a voter."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How can I find my polling booth?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "You can find your polling booth by visiting the official Election Commission website (eci.gov.in) or using your EPIC number."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://electedu-637114866764.asia-south2.run.app"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Election Information",
+                "item": "https://electedu-637114866764.asia-south2.run.app#basics"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Voting Process",
+                "item": "https://electedu-637114866764.asia-south2.run.app#process"
+            }
+        ]
+    }
+    </script>
     
 </head>
 <body>
@@ -57,7 +166,7 @@
     <!-- Navigation -->
     <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
         <div class="nav-brand">
-            <img src="./transparent_logo.png" alt="ECI Logo" class="brand-logo">
+            <img src="./transparent_logo.png" alt="ECI Logo" class="brand-logo" width="40" height="40" loading="eager">
             <span>ElectEdu</span>
         </div>
         <button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">
@@ -97,10 +206,10 @@
             <div class="shape shape-3"></div>
         </div>
         <div class="container hero-content">
-            <h1>The World's Largest <span>Democratic Exercise</span></h1>
-            <p>A comprehensive guide to demystifying the Indian election process. Learn how 900+ million voices shape the future of the nation.</p>
+            <h1 data-i18n="hero-title">The World's Largest <span>Democratic Exercise</span></h1>
+            <p data-i18n="hero-subtitle">A comprehensive guide to demystifying the Indian election process. Learn how 900+ million voices shape the future of the nation.</p>
             <div class="hero-actions">
-                <a href="#my-state" class="btn btn-primary">
+                <a href="#my-state" class="btn btn-primary" data-i18n="hero-btn">
                     Find Your State Info <i class="fa-solid fa-location-dot"></i>
                 </a>
             </div>
@@ -109,12 +218,12 @@
                 <div class="stat-box">
                     <i class="fa-solid fa-users"></i>
                     <div class="stat-value" data-target="968" data-suffix="M+">0</div>
-                    <div class="stat-label">Registered Voters</div>
+                    <div class="stat-label" data-i18n="stat-voters">Registered Voters</div>
                 </div>
                 <div class="stat-box">
                     <i class="fa-solid fa-map-location-dot"></i>
                     <div class="stat-value" data-target="36" data-suffix="">0</div>
-                    <div class="stat-label">States & UTs</div>
+                    <div class="stat-label" data-i18n="stat-states">States & UTs</div>
                 </div>
                 <div class="stat-box">
                     <i class="fa-solid fa-check-to-slot"></i>
@@ -126,7 +235,7 @@
     </header>
 
     <!-- State Selection Tracker -->
-    <section class="section state-tracker fade-bg" id="my-state">
+    <section class="section state-tracker fade-bg" id="my-state" aria-label="State election information" role="region">
         <div class="container">
             <div class="section-header text-center">
                 <h2 class="reveal">Your State Election Details</h2>
@@ -135,7 +244,7 @@
             
             <div class="state-selector-container reveal-up">
                 <div class="selector-controls">
-                    <label for="state-select"><i class="fa-solid fa-map-pin"></i> Select State/UT:</label>
+                    <label for="state-select" data-i18n="state-label"><i class="fa-solid fa-map-pin"></i> Select State/UT:</label>
                     <select id="state-select" class="custom-select">
                         <option value="" disabled selected>-- Choose your state --</option>
                         <option value="Andaman and Nicobar Islands">Andaman & Nicobar Islands</option>
@@ -234,11 +343,11 @@
     </section>
 
     <!-- Basics Section -->
-    <section class="section basics dark-section" id="basics">
+    <section class="section basics dark-section" id="basics" aria-label="Election basics" role="region">
         <div class="container">
             <div class="section-header text-center">
-                <h2 class="reveal">The Indian Election Framework</h2>
-                <p class="reveal">India holds regular elections at three different tiers, ensuring grassroots democracy up to the federal center.</p>
+                <h2 class="reveal" data-i18n="basics-title">The Indian Election Framework</h2>
+                <p class="reveal" data-i18n="basics-desc">India holds regular elections at three different tiers, ensuring grassroots democracy up to the federal center.</p>
             </div>
             
             <div class="grid-3">
@@ -262,7 +371,7 @@
     </section>
 
     <!-- Step-by-Step Process -->
-    <section class="section process" id="process">
+    <section class="section process" id="process" aria-label="Voting process steps" role="region">
         <div class="container">
             <div class="section-header">
                 <h2 class="reveal">The Electoral Process</h2>
@@ -310,7 +419,7 @@
     </section>
 
     <!-- How to Vote -->
-    <section class="section vote-guide dark-section" id="how-to-vote">
+    <section class="section vote-guide dark-section" id="how-to-vote" aria-label="Voting guide" role="region">
         <div class="container">
         <!-- OFFICIAL VOTING GUIDE SECTION -->
         <section class="how-to-vote" id="how-to-vote">
@@ -400,10 +509,10 @@
 
 
     <!-- FAQs -->
-    <section class="section faqs dark-section" id="faqs">
+    <section class="section faqs dark-section" id="faqs" aria-label="Frequently asked questions" role="region">
         <div class="container">
             <div class="section-header text-center">
-                <h2 class="reveal">Frequently Asked Questions</h2>
+                <h2 class="reveal" data-i18n="faq-title">Frequently Asked Questions</h2>
                 <p class="reveal">Clearing up common inquiries about the Indian electoral system.</p>
             </div>
             
@@ -454,7 +563,7 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <div class="nav-brand">
-                        <img src="./transparent_logo.png" alt="ECI Logo" class="brand-logo">
+                        <img src="./transparent_logo.png" alt="ECI Logo" class="brand-logo" width="40" height="40" loading="lazy">
                         <span>Democracy Decoded</span>
                     </div>
                     <p>Empowering Indian citizens with factual, non-partisan information regarding electoral processes and democratic engagement.</p>
@@ -485,8 +594,24 @@
     <!-- Election Data -->
     <script src="firebase-config.js"></script>
     <script src="stateElectionData.js"></script>
+    <script src="translations.js"></script>
     
     <!-- Main Application Script -->
     <script src="script.js"></script>
+
+    <!-- Service Worker Registration for Offline Support -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(function(registration) {
+                        console.log('[App] Service Worker registered successfully:', registration);
+                    })
+                    .catch(function(error) {
+                        console.warn('[App] Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>

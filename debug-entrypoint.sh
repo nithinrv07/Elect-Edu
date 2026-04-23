@@ -16,12 +16,27 @@ http {
     sendfile on;
     keepalive_timeout 65;
     
+    # Enable gzip compression
+    gzip on;
+    gzip_vary on;
+    gzip_comp_level 6;
+    gzip_types text/plain text/css text/xml text/javascript application/json application/javascript application/xml+rss application/rss+xml font/truetype font/opentype application/vnd.ms-fontobject image/svg+xml;
+    gzip_min_length 1000;
+    
     server {
         listen 8080 default_server;
         server_name _;
         
         root /usr/share/nginx/html;
         index index.html index.htm;
+        
+        # Security Headers
+        add_header X-Frame-Options "SAMEORIGIN" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header X-XSS-Protection "1; mode=block" always;
+        add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+        add_header Permissions-Policy "geolocation=(), microphone=(), camera=()" always;
+        add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
         
         # SPA routing
         location / {

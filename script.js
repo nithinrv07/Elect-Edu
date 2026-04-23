@@ -107,6 +107,91 @@ const PerformanceOptimizer = {
 };
 
 // ============================================================================
+// TRANSLATION SYSTEM
+// ============================================================================
+
+/**
+ * Translation Manager for Multi-language Support
+ */
+const TranslationManager = {
+    currentLanguage: localStorage.getItem('electedu-language') || 'en',
+    
+    /**
+     * Translate content on the page
+     * @param {string} lang - Language code
+     */
+    translatePage: function(lang) {
+        if (!translations) {
+            Logger.warn('Translations not loaded');
+            return;
+        }
+
+        const langData = translations[lang];
+        if (!langData) {
+            Logger.warn(`Language ${lang} not found`);
+            return;
+        }
+
+        // Translate all elements with data-i18n attribute
+        document.querySelectorAll('[data-i18n]').forEach(element => {
+            const key = element.getAttribute('data-i18n');
+            if (langData[key]) {
+                if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                    element.placeholder = langData[key];
+                } else if (element.tagName === 'OPTION') {
+                    element.textContent = langData[key];
+                } else {
+                    element.textContent = langData[key];
+                }
+            }
+        });
+
+        // Translate attributes
+        document.querySelectorAll('[data-i18n-title]').forEach(element => {
+            const key = element.getAttribute('data-i18n-title');
+            if (langData[key]) {
+                element.title = langData[key];
+            }
+        });
+
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+            const key = element.getAttribute('data-i18n-placeholder');
+            if (langData[key]) {
+                element.placeholder = langData[key];
+            }
+        });
+
+        // Update HTML direction for RTL languages
+        if (lang === 'ur' || lang === 'ar') {
+            document.documentElement.dir = 'rtl';
+            document.documentElement.lang = lang;
+        } else {
+            document.documentElement.dir = 'ltr';
+            document.documentElement.lang = lang;
+        }
+
+        this.currentLanguage = lang;
+        localStorage.setItem('electedu-language', lang);
+        Logger.log('Language changed to:', lang);
+
+        // Track language change
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'language_changed', {
+                language: lang
+            });
+        }
+    },
+
+    /**
+     * Initialize translations on page load
+     */
+    init: function() {
+        const savedLanguage = localStorage.getItem('electedu-language') || 'en';
+        this.translatePage(savedLanguage);
+    }
+};
+
+// ============================================================================
 // COUNTER ANIMATION (Global)
 // ============================================================================
 
@@ -148,6 +233,71 @@ function triggerCounters() {
 
 // Make globally accessible
 window.triggerCounters = triggerCounters;
+
+// ============================================================================
+// GLOBAL ERROR BOUNDARY & FALLBACK HANDLERS
+// ============================================================================
+
+/**
+ * Global error handler for uncaught errors
+ */
+window.addEventListener('error', function(event) {
+    Logger.error('Uncaught global error:', event.error);
+    // Optionally report to analytics or error tracking service
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'error', {
+            error_message: event.message,
+            error_source: event.filename,
+            error_line: event.lineno
+        });
+    }
+});
+
+/**
+ * Unhandled promise rejection handler
+ */
+window.addEventListener('unhandledrejection', function(event) {
+    Logger.error('Unhandled promise rejection:', event.reason);
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'promise_rejection', {
+            reason: event.reason.toString ? event.reason.toString() : 'Unknown'
+        });
+    }
+});
+
+/**
+ * Safe DOM element getter with fallback
+ * @param {string} id - Element ID
+ * @returns {Element|null} - DOM element or null
+ */
+function safeGetElement(id) {
+    try {
+        const el = document.getElementById(id);
+        if (!el) {
+            Logger.warn(`Element not found: ${id}`);
+            return null;
+        }
+        return el;
+    } catch (error) {
+        Logger.error(`Error getting element ${id}:`, error);
+        return null;
+    }
+}
+
+/**
+ * Safe event listener wrapper
+ * @param {Element} el - DOM element
+ * @param {string} event - Event name
+ * @param {Function} handler - Event handler
+ */
+function safeAddEventListener(el, event, handler) {
+    try {
+        if (!el) return;
+        el.addEventListener(event, handler);
+    } catch (error) {
+        Logger.error(`Error adding event listener ${event}:`, error);
+    }
+}
 
 // ============================================================================
 
@@ -372,29 +522,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         Logger.error('Accordion initialization failed', error);
     }
 
-    // ===== 7. LANGUAGE SELECTOR =====
+    // ===== 7. LANGUAGE SELECTOR WITH TRANSLATION =====
     try {
         const languageSelect = document.getElementById('language-select');
         if (languageSelect) {
             // Restore saved language
             const savedLanguage = localStorage.getItem('electedu-language') || 'en';
             languageSelect.value = savedLanguage;
+            
+            // Initialize translations on page load
+            TranslationManager.init();
 
             languageSelect.addEventListener('change', function(e) {
                 const selectedLanguage = e.target.value;
-                localStorage.setItem('electedu-language', selectedLanguage);
-                
-                Logger.log('Language changed to:', selectedLanguage);
-                
-                // Track language change
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'language_changed', {
-                        language: selectedLanguage
-                    });
-                }
-
-                // Optionally reload page to apply language changes
-                // window.location.reload();
+                TranslationManager.translatePage(selectedLanguage);
             });
         }
     } catch (error) {
